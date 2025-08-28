@@ -6,7 +6,13 @@ namespace sixos_soft_0401.Models.M0401
     public class M0401AppDbContext : DbContext
     {
         public M0401AppDbContext(DbContextOptions<M0401AppDbContext> options) : base(options) { }
-        public DbSet<M0401AppDbContext> DSNguoiBenhThucHienCLS { get; set; }
+        public DbSet<M0401AppDbContext> T0401_DSNguoiBenhThucHienCLS { get; set; }
+        public DbSet<M0401_ThongTinDoanhNghiep> ThongTinDoanhNghieps { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<M0401_DSNguoiBenhThucHienCLS_Model>().HasNoKey();
+        }
         public bool TestConnection()
         {
             try
