@@ -1,0 +1,215 @@
+﻿@{
+	ViewData["NonSixOs"] = true;
+	ViewData["Title"] = "Danh sách người thực hiện chuẩn lâm sàng";
+}
+@* @using VipPatientReport.Models.M0301.M0301BCTonKhoVLYT;
+@model List<M0301BCTonKhoVTYTModel> *@
+<div class="card p-1 d-flex " style="height: 86vh;position: relative;">
+	<div class="row px-3 g-0 h-100">
+		<div class="col-3 p-2">
+			<div class="border">
+				<div class="p-2">
+					<div style="width: 100%; padding:0;">
+						<label class="form-label">Giai đoạn</label>
+						<select id="selectGiaiDoan" class="form-select">
+							<option value="Nam">Năm</option>
+							<option value="Quy">Quý</option>
+							<option value="Thang">Tháng</option>
+							<option value="Ngay" selected>Ngày</option>
+						</select>
+					</div>
+				</div>
+
+
+				<div id="selectContainer"
+					 class="p-2 d-flex justify-content-between align-items-center">
+				</div>
+				<div id="select-date-area">
+					<div class="p-2">
+						<label class="form-label">Từ ngày</label>
+						<div class="input-group">
+							<input type="text"
+								   class="form-control date-input"
+								   id="ngayTuNgay"
+								   name="TuNgay"
+								   value="@DateTime.Now.ToString("dd-MM-yyyy")"
+								   placeholder="dd-mm-yyyy"
+								   autocomplete="off" />
+							<span class="input-group-text cursor-pointer datepicker-trigger">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+								</svg>
+							</span>
+						</div>
+						<span class="text-danger"></span>
+					</div>
+					<div class="p-2">
+						<label class="form-label">Đến ngày</label>
+						<div class="input-group">
+							<input type="text"
+								   class="form-control date-input"
+								   id="ngayDenNgay"
+								   name="DenNgay"
+								   value="@DateTime.Now.ToString("dd-MM-yyyy")"
+								   placeholder="dd-mm-yyyy"
+								   autocomplete="off" />
+							<span class="input-group-text cursor-pointer datepicker-trigger">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+								</svg>
+							</span>
+						</div>
+						<span class="text-danger"></span>
+					</div>
+				</div>
+				<div>
+					<div class="p-2">
+						<label class="form-label">Nhóm vật tư</label>
+						<div class="position-relative">
+							<input type="text" id="searchNhomHang" class="form-control" autocomplete="off">
+							<input type="hidden" id="selectedNhomHangId" name="NhanVienId">
+							<div id="dropdownNhomHang"
+								 class="list-group position-absolute w-100"
+								 style="max-height:250px; overflow-y:auto; display:none; z-index:1050;">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="p-2">
+						<label class="form-label">Vật tư</label>
+						<div class="position-relative">
+							<input type="text" id="searchHangHoa" class="form-control" autocomplete="off">
+							<input type="hidden" id="selectedHangHoaId" name="NhanVienId">
+							<div id="dropdownHangHoa"
+								 class="list-group position-absolute w-100"
+								 style="max-height:250px; overflow-y:auto; display:none; z-index:1050;">
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="p-2">
+					<button id="btnFilter" class="btn btn-outline-primary w-100 mb-2" @(ViewBag.quyenVaiTro.Xem ? "" : "disabled")>
+						<i class="bi bi-funnel"></i> Lọc danh sách
+					</button>
+					<div class="d-flex justify-content-between align-items-center ">
+						<button id="btnExportPDF" class="btn btn-outline-danger" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
+							<i class="bi bi-file-earmark-pdf"></i> Xuất PDF
+						</button>
+						<button id="btnExportExcel" class="btn btn-outline-success" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
+							<i class="bi bi-file-earmark-excel"></i> Xuất Excel
+						</button>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<div class="col-9 p-2">
+
+
+
+			<div class="table-responsive" style="max-height: 78vh;min-height: 78vh; overflow-y:auto;">
+				<table class="table table-bordered table-hover">
+					<thead class="table-light">
+						<tr>
+							<th class="text-center" style="width:60px">STT</th>
+							<th class="text-center text-nowrap">Mã người bệnh</th>
+							<th class="text-center text-nowrap">Số vào viện</th>
+							<th class="text-center text-nowrap">Mã số đợt</th>
+							<th class="text-center text-nowrap">ICD</th>
+							<th class="text-center text-nowrap">Họ tên</th>
+							<th class="text-center text-nowrap">NS</th>
+							<th class="text-center text-nowrap">GT</th>
+							<th class="text-center text-nowrap">Số thẻ BHYT</th>
+							<th class="text-center text-nowrap">KCB	BD</th>
+							<th class="text-center text-nowrap">ĐỐi tượng</th>
+							<th class="text-center text-nowrap">Nơi chỉ định</th>
+							<th class="text-center text-nowrap">Bác sĩ</th>
+							<th class="text-center text-nowrap">Dịch vụ</th>
+							<th class="text-center text-nowrap">Nơi chỉ định</th>
+							<th class="text-center text-nowrap">Bác sĩ</th>
+							<th class="text-center text-nowrap">Dịch vụ</th>
+							<th class="text-center text-nowrap">SL</th>
+							<th class="text-center text-nowrap">Ngày yêu cầu</th>
+							<th class="text-center text-nowrap">Ngày thực hiện</th>
+							<th class="text-center text-nowrap">Quyển</th>
+							<th class="text-center text-nowrap">Số HĐ</th>
+							<th class="text-center text-nowrap">Số chứng từ</th>
+							<th class="text-center text-nowrap">Thiết bị</th>
+							<th class="text-center text-nowrap">Doanh thu</th>
+							<th class="text-center text-nowrap">Bảo hiểm</th>
+							<th class="text-center text-nowrap">Đã thanh toán</th>
+						</tr>
+					</thead>
+					<tbody id="data-list">
+					</tbody>
+
+
+				</table>
+
+			</div>
+			<div id="loadingSpinner" class="text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
+				<div class="spinner-border text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<p>Đang tải dữ liệu...</p>
+			</div>
+			<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055">
+				<div id="myToast"
+					 class="toast align-items-center text-white bg-success border-0"
+					 role="alert" aria-live="assertive" aria-atomic="true"
+					 data-bs-delay="2000">
+					<div class="d-flex">
+						<div class="toast-body p-4">
+						</div>
+						<button type="button" class="btn-close btn-close-white me-2 m-auto"
+								data-bs-dismiss="toast" aria-label="Close"></button>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between align-items-center flex-wrap">
+
+				<div class="d-flex align-items-center">
+					<label for="pageSizeSelect" class="form-label mb-0 me-2">Số bản ghi mỗi trang:</label>
+					<select id="pageSizeSelect" class="form-select form-select-sm" style="width: auto;">
+						<option value="10">10</option>
+						<option value="20" selected>20</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+				</div>
+
+
+				<div class="d-flex align-items-center">
+					<nav aria-label="Page navigation">
+						<ul class="pagination mb-0" id="pagination"></ul>
+					</nav>
+					<span id="pageInfo " class="ms-2"></span>
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</div>
+</div>
+
+
+
+
+
+@section Scripts {
+	<link rel="stylesheet" href="~/dist/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" href="~/dist/css/CSS0301/CSS0301Styles.css" asp-append-version="true">
+
+	<script src="~/dist/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+	<script src="~/dist/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" defer></script>
+	<script src="~/dist/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.vi.min.js" defer></script>
+	<script src="~/dist/js/J0301/J0301BCTonKhoVTYT.js" asp-append-version="true" defer></script>
+
+
+}

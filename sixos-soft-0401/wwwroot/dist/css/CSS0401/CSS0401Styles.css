@@ -1,0 +1,248 @@
+﻿/*=====================================================================*/
+.class-container {
+    margin: auto;   
+
+}
+
+.float-end {
+    margin-bottom: 10px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+.is-invalid {
+    border-color: red !important;
+}
+
+.btn-sm i {
+    font-size: 0.9rem;
+}
+
+.btn-warning {
+    color: #212529; /* Màu chữ tối để dễ đọc trên nền vàng */
+}
+/* Khoảng cách giữa các nút */
+.btn-sm {
+    margin-right: 5px;
+}
+
+.dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-item.active {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+/* Nút xem sinh viên ẩn */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Modal sinh viên ẩn */
+#hiddenStudentsTable {
+    width: 100%;
+}
+
+/* Khoảng cách giữa các nút */
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.pagination {
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.page-link {
+    color: #007bff;
+    cursor: pointer;
+    padding: 8px 14px;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+}
+
+.pagination-info {
+    margin-right: 20px;
+    color: #555;
+}
+
+.pagination-infoo {
+    margin-right: 20px;
+    color: #555;
+}
+
+.pagination-center {
+    margin-right: auto;
+    padding-right: 260px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.pagination .page-link {
+    border-radius: 4px;
+    margin: 0 2px;
+    transition: background-color 0.2s;
+}
+
+    .pagination .page-link:hover:not(.disabled) {
+        background-color: #0d6efd;
+    }
+
+.pagination-container {
+    position: absolute;
+    bottom: 0;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-box {
+    background: white;
+    max-width: 400px;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    animation: slideDown 0.3s ease-in-out;
+}
+
+.btn-confirm {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background: #f44336;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-confirm:hover {
+    background: #45a049;
+}
+
+.btn-cancel:hover {
+    background: #d32f2f;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.page-item.disabled .page-link {
+    cursor: not-allowed;
+}
+
+/*====================*/
+.label_ma_loai {
+    margin-right: 12px;
+}
+
+.input_ma_loai {
+    min-width: 400px;
+}
+
+.dropdown.position-relative::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #555;
+    border-bottom: 2px solid #555;
+    pointer-events: none;
+}
+
+.table-wrapper {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    min-height: 600px; /* chiều cao tối thiểu cho bảng + pagination */
+}
+
+.pagination-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+

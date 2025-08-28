@@ -1,0 +1,46 @@
+﻿.datepicker .datepicker-switch {
+    font-weight: bold;
+    color: #007bff;
+    width: 270px;
+}
+
+
+.datepicker .prev,
+.datepicker .next {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.datepicker .day.today {
+    background-color: #ffeb3b;
+    color: #000;
+    border-radius: 50%;
+}
+
+.datepicker .day.active,
+.datepicker .day.active:hover {
+    background-color: #007bff !important;
+    color: #fff !important;
+    border-radius: 50%;
+}
+
+
+.datepicker table tr td.day:hover {
+    background-color: #e9ecef;
+    border-radius: 50%;
+}
+
+
+#fromDate, #toDate {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+    #fromDate:focus, #toDate:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 4px rgba(0,123,255,0.25);
+    }
