@@ -62,43 +62,18 @@
 						<span class="text-danger"></span>
 					</div>
 				</div>
-				<div>
-					<div class="p-2">
-						<label class="form-label">Nhóm vật tư</label>
-						<div class="position-relative">
-							<input type="text" id="searchNhomHang" class="form-control" autocomplete="off">
-							<input type="hidden" id="selectedNhomHangId" name="NhanVienId">
-							<div id="dropdownNhomHang"
-								 class="list-group position-absolute w-100"
-								 style="max-height:250px; overflow-y:auto; display:none; z-index:1050;">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="p-2">
-						<label class="form-label">Vật tư</label>
-						<div class="position-relative">
-							<input type="text" id="searchHangHoa" class="form-control" autocomplete="off">
-							<input type="hidden" id="selectedHangHoaId" name="NhanVienId">
-							<div id="dropdownHangHoa"
-								 class="list-group position-absolute w-100"
-								 style="max-height:250px; overflow-y:auto; display:none; z-index:1050;">
-							</div>
-						</div>
-					</div>
-				</div>
+				
 
 
 				<div class="p-2">
-					<button id="btnFilter" class="btn btn-outline-primary w-100 mb-2" @(ViewBag.quyenVaiTro.Xem ? "" : "disabled")>
+					<button id="btnFilter" class="btn btn-primary w-100 mb-2" @(ViewBag.quyenVaiTro.Xem ? "" : "disabled")>
 						<i class="bi bi-funnel"></i> Lọc danh sách
 					</button>
 					<div class="d-flex justify-content-between align-items-center ">
-						<button id="btnExportPDF" class="btn btn-outline-danger" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
+						<button id="btnExportPDF" class="btn btn-danger" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
 							<i class="bi bi-file-earmark-pdf"></i> Xuất PDF
 						</button>
-						<button id="btnExportExcel" class="btn btn-outline-success" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
+						<button id="btnExportExcel" class="btn btn-success" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
 							<i class="bi bi-file-earmark-excel"></i> Xuất Excel
 						</button>
 					</div>

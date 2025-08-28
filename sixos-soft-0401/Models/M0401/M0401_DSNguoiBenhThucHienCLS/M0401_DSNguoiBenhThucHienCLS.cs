@@ -9,9 +9,8 @@ namespace sixos_soft_0401.Models.M0401.M0401_DSNguoiBenhThucHienCLS
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }  // bigint, tự động tăng
         public string MaNguoiBenh { get; set; } = string.Empty; // 
-
+        public string SoVaoVien { get; set; } = string.Empty; // 
         public string MaSoDot { get; set; } = string.Empty; // 
-
         public string ICD { get; set; } = string.Empty; // 
         public string HoTen { get; set; } = string.Empty; // 
         public string NamSinh { get; set; } = string.Empty; // 

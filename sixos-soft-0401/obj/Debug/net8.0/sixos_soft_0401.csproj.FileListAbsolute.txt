@@ -220,3 +220,4 @@ C:\Tinh_C_Sharp\tinh\sixos-soft\sixos-soft-0401\sixos-soft-0401\obj\Debug\net8.0
 C:\Tinh_C_Sharp\tinh\sixos-soft\sixos-soft-0401\sixos-soft-0401\obj\Debug\net8.0\sixos_soft_0401.pdb
 C:\Tinh_C_Sharp\tinh\sixos-soft\sixos-soft-0401\sixos-soft-0401\obj\Debug\net8.0\sixos_soft_0401.genruntimeconfig.cache
 C:\Tinh_C_Sharp\tinh\sixos-soft\sixos-soft-0401\sixos-soft-0401\obj\Debug\net8.0\ref\sixos_soft_0401.dll
+C:\Tinh_C_Sharp\tinh\sixos-soft\sixos-soft-0401\sixos-soft-0401\obj\Debug\net8.0\sixos_soft_0401.sourcelink.json
