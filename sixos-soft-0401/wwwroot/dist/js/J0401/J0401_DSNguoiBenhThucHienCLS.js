@@ -110,30 +110,30 @@ function updateTable(response) {
                     <td class="text-center text-nowrap">${item.soVaoVien ?? item.SoVaoVien ?? ''}</td>
                     <td class="text-center text-nowrap">${item.maSoDot ?? item.MaSoDot ?? ''}</td>
                     <td class="text-center text-nowrap">${item.iCD ?? item.Icd ?? item.icd ?? item.ICD ?? ''}</td>
-                    <td class="text-left text-nowrap">${item.hoTen ?? item.HoTen ?? ''}</td>
+                    <td class="text-start text-nowrap">${item.hoTen ?? item.HoTen ?? ''}</td>
                     <td class="text-center text-nowrap">${item.namSinh ?? item.NamSinh ?? ''}</td>
                     <td class="text-center text-nowrap">${item.gioiTinh ?? item.GioiTinh ?? ''}</td>
                     <td class="text-center text-nowrap">${item.soTheBHYT ?? item.SoTheBHYT ?? ''}</td>
                     <td class="text-center text-nowrap">${item.kCB_BD ?? item.Kcb_bd ?? item.kcB_BD ?? item.kcb_bd ?? item.KCB_BD ?? ''}</td>
-                    <td class="text-left text-nowrap">${item.doiTuong ?? item.DoiTuong ?? ''}</td>
-                    <td class="text-left text-nowrap">${item.noiChiDinh ?? item.NoiChiDinh ?? ''}</td>
-                    <td class="text-left text-nowrap">${item.bacSi ?? item.BacSi ?? ''}</td>
-                    <td class="text-left text-nowrap">${item.dichVu ?? item.DichVu ?? ''}</td>
-                    <td class="text-right text-nowrap">${item.soLuong ?? item.SoLuong ?? ''}</td>
+                    <td class="text-start text-nowrap">${item.doiTuong ?? item.DoiTuong ?? ''}</td>
+                    <td class="text-start text-nowrap">${item.noiChiDinh ?? item.NoiChiDinh ?? ''}</td>
+                    <td class="text-start text-nowrap">${item.bacSi ?? item.BacSi ?? ''}</td>
+                    <td class="text-start text-nowrap">${item.dichVu ?? item.DichVu ?? ''}</td>
+                    <td class="text-end text-nowrap">${item.soLuong ?? item.SoLuong ?? ''}</td>
                     <td class="text-center text-nowrap">${formatDate(item.ngayYeuCau ?? item.NgayYeuCau)}</td>
                     <td class="text-center text-nowrap">${formatDate(item.ngayThucHien ?? item.NgayThucHien)}</td>
                     <td class="text-center text-nowrap">${item.quyen ?? item.Quyen ?? ''}</td>
                     <td class="text-center text-nowrap">${item.soHD ?? item.SoHD ?? ''}</td>
                     <td class="text-center text-nowrap">${item.soChungTu ?? item.SoChungTu ?? ''}</td>
-                    <td style="width: 120px;" class="text-left text-nowrap">${item.thietBi ?? item.ThietBi ?? ''}</td>
-                    <td class="text-right text-nowrap">
-                        ${Number(item.doanhThu ?? item.DoanhThu ?? 0).toLocaleString('vi-VN')}
+                    <td style="min-width: 320px; max-width:320px;">${item.thietBi ?? item.ThietBi ?? ''}</td>
+                    <td > class="text-end text-nowrap">
+                        ${Number(item.doanhThu ?? item.DoanhThu ?? 0).toLocaleString('en-US')}
                     </td>
-                    <td class="text-right text-nowrap">
-                        ${Number(item.baoHiem ?? item.BaoHiem ?? 0).toLocaleString('vi-VN')}
+                    <td class="text-end text-nowrap">
+                        ${Number(item.baoHiem ?? item.BaoHiem ?? 0).toLocaleString('en-US')}
                     </td>
-                    <td class="text-right text-nowrap">
-                        ${Number(item.daThanhToan ?? item.DaThanhToan ?? 0).toLocaleString('vi-VN')}
+                    <td class="text-end text-nowrap">
+                        ${Number(item.daThanhToan ?? item.DaThanhToan ?? 0).toLocaleString('en-US')}
                     </td>
                 </tr>
             `;

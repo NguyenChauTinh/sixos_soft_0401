@@ -5247,11 +5247,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Tinh_C_Sharp\\tinh\\sixos-soft\\sixos-soft-0401\\sixos-soft-0401\\sixos_soft_0401.csproj",
+      "projectUniqueName": "C:\\Tinh_C_Sharp\\tinh\\sixos-soft\\sixos_soft_0401\\sixos-soft-0401\\sixos_soft_0401.csproj",
       "projectName": "sixos_soft_0401",
-      "projectPath": "C:\\Tinh_C_Sharp\\tinh\\sixos-soft\\sixos-soft-0401\\sixos-soft-0401\\sixos_soft_0401.csproj",
+      "projectPath": "C:\\Tinh_C_Sharp\\tinh\\sixos-soft\\sixos_soft_0401\\sixos-soft-0401\\sixos_soft_0401.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Tinh_C_Sharp\\tinh\\sixos-soft\\sixos-soft-0401\\sixos-soft-0401\\obj\\",
+      "outputPath": "C:\\Tinh_C_Sharp\\tinh\\sixos-soft\\sixos_soft_0401\\sixos-soft-0401\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
