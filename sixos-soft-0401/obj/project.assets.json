@@ -5241,23 +5241,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vitin\\.nuget\\packages\\": {},
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\LearnC#\\sixos_soft\\sixos_soft_0401\\sixos-soft-0401\\sixos_soft_0401.csproj",
+      "projectUniqueName": "C:\\Tinh_C_Sharp\\tinh\\sixos-soft\\sixos-soft-0401\\sixos-soft-0401\\sixos_soft_0401.csproj",
       "projectName": "sixos_soft_0401",
-      "projectPath": "C:\\LearnC#\\sixos_soft\\sixos_soft_0401\\sixos-soft-0401\\sixos_soft_0401.csproj",
-      "packagesPath": "C:\\Users\\vitin\\.nuget\\packages\\",
-      "outputPath": "C:\\LearnC#\\sixos_soft\\sixos_soft_0401\\sixos-soft-0401\\obj\\",
+      "projectPath": "C:\\Tinh_C_Sharp\\tinh\\sixos-soft\\sixos-soft-0401\\sixos-soft-0401\\sixos_soft_0401.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Tinh_C_Sharp\\tinh\\sixos-soft\\sixos-soft-0401\\sixos-soft-0401\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\vitin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5266,7 +5266,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

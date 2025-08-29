@@ -3,6 +3,8 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using sixos_soft_0401.Models.M0401;
 using sixos_soft_0401.Models.M0401.M0401_DSNguoiBenhThucHienCLS;
+using System.Globalization;
+
 
 namespace sixos_soft_0401.PDFDocuments.P0401
 {
@@ -12,6 +14,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
         private readonly string _fromDate;
         private readonly string _toDate;
         private readonly M0401_ThongTinDoanhNghiep _thongTinDoanhNghiep;
+        private const int TotalColumns = 24;
 
         public P0401_DSNguoiBenhThucHienCLS_PDF(List<M0401_DSNguoiBenhThucHienCLS_Model> data, string fromDate, string toDate, M0401_ThongTinDoanhNghiep doanhNghiep)
         {
@@ -27,8 +30,8 @@ namespace sixos_soft_0401.PDFDocuments.P0401
             {
                 if (_data.Any())
                 {
-                    _fromDate = _data.Min(x => x.NgayThucHien).ToString("dd-MM-yyyy");
-                    _toDate = _data.Max(x => x.NgayThucHien).ToString("dd-MM-yyyy");
+                    _fromDate = _data.Min(x => x.NgayThucHien)?.ToString("dd-MM-yyyy");
+                    _toDate = _data.Max(x => x.NgayThucHien)?.ToString("dd-MM-yyyy");
                 }
                 else
                 {
@@ -45,6 +48,18 @@ namespace sixos_soft_0401.PDFDocuments.P0401
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
 
+        private IContainer CellStyle(IContainer container)
+        {
+            return container
+                .Border(1)
+                .BorderColor(Colors.Grey.Medium)
+                .PaddingVertical(3) // Reduced padding for tighter fit
+                .PaddingHorizontal(2)
+                .Background(Colors.White)
+                .AlignMiddle()
+                .DefaultTextStyle(TextStyle.Default.FontSize(6)); // Reduced font size
+        }
+
         public void Compose(IDocumentContainer container)
         {
             container.Page(page =>
@@ -52,7 +67,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                 page.Size(PageSizes.A4.Landscape());
                 page.Margin(20);
                 page.PageColor(Colors.White);
-                page.DefaultTextStyle(x => x.FontSize(12).FontColor(Colors.Black));
+                page.DefaultTextStyle(x => x.FontSize(10).FontColor(Colors.Black));
 
                 page.Content()
                     .Column(column =>
@@ -76,34 +91,34 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                             .PaddingLeft(2)
                                             .Column(infoColumn =>
                                             {
-                                                infoColumn.Item().Text(_thongTinDoanhNghiep.TenCSKCB ?? "").Bold().FontSize(13);
-                                                infoColumn.Item().Text($"Địa chỉ: {_thongTinDoanhNghiep.DiaChi ?? ""}").FontSize(11).WrapAnywhere(false);
-                                                infoColumn.Item().Text($"Điện thoại: {_thongTinDoanhNghiep.DienThoai ?? ""}").FontSize(11);
-                                                infoColumn.Item().Text($"Email: {_thongTinDoanhNghiep.Email ?? ""}").FontSize(11);
+                                                infoColumn.Item().Text(_thongTinDoanhNghiep.TenCSKCB ?? "").Bold().FontSize(12);
+                                                infoColumn.Item().Text($"Địa chỉ: {_thongTinDoanhNghiep.DiaChi ?? ""}").FontSize(10);
+                                                infoColumn.Item().Text($"Điện thoại: {_thongTinDoanhNghiep.DienThoai ?? ""}").FontSize(10);
+                                                infoColumn.Item().Text($"Email: {_thongTinDoanhNghiep.Email ?? ""}").FontSize(10);
                                             });
                                     });
                                 row.RelativeColumn(0.4f)
                                     .Column(nationalColumn =>
                                     {
                                         nationalColumn.Item()
-                                              .AlignRight()
+                                              .AlignCenter()
                                               .Text("DANH SÁCH NGƯỜI BỆNH THỰC HIỆN CHUẨN LÂM SÀNG")
                                               .FontFamily("Times New Roman")
-                                              .FontSize(13)
+                                              .FontSize(11)
                                               .Bold()
                                               .FontColor(Colors.Blue.Darken2);
 
                                         nationalColumn.Item()
                                             .AlignRight()
                                             .Text("Đơn vị thống kê")
-                                            .FontSize(11)
+                                            .FontSize(10)
                                             .FontFamily("Times New Roman");
 
                                         nationalColumn.Item()
                                              .AlignRight()
                                              .Text(text =>
                                              {
-                                                 text.DefaultTextStyle(TextStyle.Default.FontSize(10).SemiBold());
+                                                 text.DefaultTextStyle(TextStyle.Default.FontSize(9).SemiBold());
 
                                                  if (_fromDate == _toDate)
                                                      text.Span($"Ngày: {_fromDate}");
@@ -118,53 +133,52 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
-                                    for (int i = 0; i < 15; i++)
-                                    {
-                                        columns.RelativeColumn();
-                                    }
+                                    columns.RelativeColumn(1); // STT
+                                    columns.RelativeColumn(2); // Mã NB
+                                    columns.RelativeColumn(2); // Số vào viện
+                                    columns.RelativeColumn(2); // Mã số đợt
+                                    columns.RelativeColumn(2); // ICD
+                                    columns.RelativeColumn(4); // Họ tên (rộng gấp 4 lần cột STT)
+                                    columns.RelativeColumn(1.5f); // NS
+                                    columns.RelativeColumn(1); // GT
+                                    columns.RelativeColumn(3); // Số BHYT
+                                    columns.RelativeColumn(2); // KCB BĐ
+                                    columns.RelativeColumn(2); // Đối tượng
+                                    columns.RelativeColumn(3); // Nơi chỉ định
+                                    columns.RelativeColumn(3); // Bác sĩ
+                                    columns.RelativeColumn(4); // Dịch vụ (rộng gấp 4 lần cột STT)
+                                    columns.RelativeColumn(1); // SL
+                                    columns.RelativeColumn(2); // Ngày YC
+                                    columns.RelativeColumn(2); // Ngày TH
+                                    columns.RelativeColumn(1.5f); // Quyển
+                                    columns.RelativeColumn(2); // Số HĐ
+                                    columns.RelativeColumn(2); // Số CT
+                                    columns.RelativeColumn(3); // Thiết bị
+                                    columns.RelativeColumn(2); // Doanh thu
+                                    columns.RelativeColumn(1.5f); // BH
+                                    columns.RelativeColumn(1.5f); // Đã TT
                                 });
+
+                                string[] headers = { "STT", "Mã NB", "Số vào viện", "Mã số đợt", "ICD", "Họ tên", "NS", "GT",
+                            "Số BHYT", "KCB BĐ", "Đối tượng", "Nơi chỉ định", "Bác sĩ", "Dịch vụ",
+                            "SL", "Ngày YC", "Ngày TH", "Quyển", "Số HĐ", "Số CT", "Thiết bị", "Doanh thu", "BH", "Đã TT" };
 
                                 table.Header(header =>
                                 {
-                                    void AddHeaderCell(string text)
+                                    foreach (var h in headers)
                                     {
-                                        header.Cell()
-                                            .Border(1)
-                                            .BorderColor(Colors.Grey.Darken1)
-                                            .Background(Colors.Grey.Lighten3)
-                                            .PaddingVertical(2)
-                                            .PaddingHorizontal(3)
-                                            .AlignCenter()
-                                            .AlignMiddle()
-                                            .Text(text)
-                                            .Bold()
-                                            .FontSize(13);
+                                        header.Cell().Element(c =>
+                                        {
+                                            c.Background(Colors.Grey.Lighten3)
+                                             .Border(1)
+                                             .BorderColor(Colors.Grey.Darken1)
+                                             .Padding(2)
+                                             .AlignCenter()
+                                             .Text(h)
+                                             .FontSize(8) // Smaller font for headers to ensure single-line fit
+                                             .Bold();
+                                        });
                                     }
-
-                                    AddHeaderCell("STT");
-                                    AddHeaderCell("Mã người bệnh");
-                                    AddHeaderCell("Số vào viện");
-                                    AddHeaderCell("Mã số đợt");
-                                    AddHeaderCell("ICD");
-                                    AddHeaderCell("Họ tên");
-                                    AddHeaderCell("NS");
-                                    AddHeaderCell("GT");
-                                    AddHeaderCell("Số thẻ BHYT");
-                                    AddHeaderCell("KCB BĐ");
-                                    AddHeaderCell("Đối tượng");
-                                    AddHeaderCell("Nơi chị định");
-                                    AddHeaderCell("Bác sĩ");
-                                    AddHeaderCell("Dịch vụ");
-                                    AddHeaderCell("Số lượng");
-                                    AddHeaderCell("Ngày yêu cầu");
-                                    AddHeaderCell("Ngày thực hiện");
-                                    AddHeaderCell("Quyển");
-                                    AddHeaderCell("Số HĐ");
-                                    AddHeaderCell("Số chứng từ");
-                                    AddHeaderCell("Thiết bị");
-                                    AddHeaderCell("Doanh thu");
-                                    AddHeaderCell("Bảo hiểm");
-                                    AddHeaderCell("Dã thanh toán");
                                 });
 
                                 int stt = 1;
@@ -176,7 +190,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                     table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.MaSoDot);
                                     table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.ICD);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.HoTen);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.NamSinh);
+                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.NamSinh);
                                     table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.GioiTinh);
                                     table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.SoTheBHYT);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.KCB_BD);
@@ -184,64 +198,61 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                     table.Cell().Element(c => CellStyle(c)).Text(item.NoiChiDinh);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.BacSi);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.DichVu);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.SoLuong);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.NgayYeuCau.ToString("dd-MM-yyyy"));
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.NgayThucHien.ToString("dd-MM-yyyy"));
+                                    table.Cell().Element(c => CellStyle(c)).AlignRight().Text(item.SoLuong);
+                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.NgayYeuCau?.ToString("dd-MM-yyyy"));
+                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.NgayThucHien?.ToString("dd-MM-yyyy"));
                                     table.Cell().Element(c => CellStyle(c)).Text(item.Quyen);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.SoHD);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.SoChungTu);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.ThietBi);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.DoanhThu);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.BaoHiem);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.DaThanhToan);
+                                    var culture = new CultureInfo("en-US"); // Hoặc "en-US" tùy yêu cầu
+
+                                    table.Cell().Element(c => CellStyle(c))
+                                        .AlignRight()
+                                        .Text(item.DoanhThu?.ToString("N0", culture));
+
+                                    table.Cell().Element(c => CellStyle(c))
+                                        .AlignRight()
+                                        .Text(item.BaoHiem?.ToString("N0", culture));
+
+                                    table.Cell().Element(c => CellStyle(c))
+                                        .AlignRight()
+                                        .Text(item.DaThanhToan?.ToString("N0", culture));
                                 }
                             });
 
                         column.Item().PaddingTop(10);
+                        column.Item().PaddingTop(20).EnsureSpace(80)
+                            .Row(row =>
+                            {
+                                row.RelativeColumn()
+                                    .AlignRight()
+                                    .Column(rightColumn =>
+                                    {
+                                        rightColumn.Item()
+                                            .Text($"Ngày {DateTime.Now:dd} tháng {DateTime.Now:MM} năm {DateTime.Now:yyyy}")
+                                            .FontSize(9).Italic();
+
+                                        rightColumn.Item().PaddingTop(5)
+                                            .Text("Người xác nhận")
+                                            .Bold().FontSize(9);
+
+                                        rightColumn.Item().PaddingTop(3)
+                                            .Text("(Ký, họ tên)")
+                                            .Italic().FontSize(9);
+                                    });
+                            });
                     });
 
                 page.Footer()
-                    .AlignRight()
-                    .Column(column =>
+                    .Text(x =>
                     {
-                        column.Item()
-                            .Text(text =>
-                            {
-                                text.Span("Ngày 4 tháng 7 năm 2025").FontSize(11).FontFamily("Times New Roman");
-                            });
-                        column.Item()
-                            .Text(text =>
-                            {
-                                text.Span("Người xác nhận").FontSize(11).FontFamily("Times New Roman").Bold();
-                            });
-                        column.Item()
-                            .Text(text =>
-                            {
-                                text.Span("(Ký, ghi rõ họ tên)").FontSize(11).FontFamily("Times New Roman").Italic();
-                            });
-                        column.Item()
-                            .PaddingTop(5)
-                            .Text(text =>
-                            {
-                                text.Span("Trang ").FontSize(10);
-                                text.CurrentPageNumber();
-                                text.Span(" / ");
-                                text.TotalPages();
-                            });
+                        x.CurrentPageNumber();
+                        x.Span(" / ");
+                        x.TotalPages();
                     });
-            });
-        }
 
-        private IContainer CellStyle(IContainer container)
-        {
-            return container
-                .Border(1)
-                .BorderColor(Colors.Grey.Medium)
-                .PaddingVertical(5)
-                .PaddingHorizontal(3)
-                .Background(Colors.White)
-                .AlignMiddle()
-                .DefaultTextStyle(TextStyle.Default.FontSize(11));
+            });
         }
     }
 }

@@ -1,7 +1,7 @@
 wwwroot\css\site.css
 wwwroot\dist\css\bootstrap.min.css
-wwwroot\dist\css\CSS0301\CSS0301Styles.css
 wwwroot\dist\css\CSS0401\CSS0401Styles.css
+wwwroot\dist\css\CSS0401\CSS_DSNguoiThucHienCLS.css
 wwwroot\dist\css\Custom.css
 wwwroot\dist\css\demo.css
 wwwroot\dist\css\demo.min.css
@@ -31,9 +31,6 @@ wwwroot\dist\css\treeview.css
 wwwroot\dist\data\json\CLS_DmLoaiCLS.json
 wwwroot\dist\img\logo.png
 wwwroot\dist\js\BienChung.js
-wwwroot\dist\js\J0301\J0301BangKeHuyHoan.js
-wwwroot\dist\js\J0301\J0301BCTonKhoVTYT.js
-wwwroot\dist\js\J0301\J0301BenhNhanVip.js
 wwwroot\dist\js\J0401\J0401QL_NoiDungHen.js
 wwwroot\dist\lib\apexcharts\dist\apexcharts.amd.js
 wwwroot\dist\lib\apexcharts\dist\apexcharts.common.js
@@ -1204,3 +1201,4 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\dist\js\J0401\J0401_DSNguoiBenhThucHienCLS.js

@@ -98,7 +98,7 @@ function updateTable(response) {
     } else if (response && response.data) {
         data = Array.isArray(response.data) ? response.data : [response.data];
     }
-
+    
     if (data.length > 0) {
         data.forEach((item, index) => {
             const stt = (currentPage - 1) * pageSize + index + 1;
@@ -106,32 +106,38 @@ function updateTable(response) {
             const row = `
                 <tr>
                     <td class="text-center text-nowrap">${stt}</td>
-                    <td class="text-center text-nowrap">${item.maNguoiBenh || item.MaNguoiBenh || ''}</td>
-                    <td class="text-center text-nowrap">${item.soVaoVien || item.MaTiepNhan || ''}</td>
-                    <td class="text-center text-nowrap">${item.maSoDot || item.MaSoDot || ''}</td>
-                    <td class="text-center text-nowrap">${item.iCD || item.ICD || ''}</td>
-                    <td class="text-center text-nowrap">${item.hoTen || item.HoTen || ''}</td>
-                    <td class="text-center text-nowrap">${item.namSinh || item.NamSinh || ''}</td>
-                    <td class="text-center text-nowrap">${item.gioiTinh || item.GioiTinh || ''}</td>
-                    <td class="text-center text-nowrap">${item.soTheBHYT || item.SoTheBHYT || ''}</td>
-                    <td class="text-center text-nowrap">${item.kCB_BD || item.KCB_BD || ''}</td>
-                    <td class="text-center text-nowrap">${item.doiTuong || item.DoiTuong || ''}</td>
-                    <td class="text-center text-nowrap">${item.noiChiDinh || item.NoiChiDinh || ''}</td>
-                    <td class="text-center text-nowrap">${item.bacSi || item.BacSi || ''}</td>
-                    <td class="text-center text-nowrap">${item.dichVu || item.DichVu || ''}</td>
-                    <td class="text-center text-nowrap">${item.soLuong || item.SoLuong || ''}</td>
-                    <td class="text-center text-nowrap">${formatDate(item.ngayYeuCau || item.NgayYeuCau)}</td>
-                    <td class="text-center text-nowrap">${formatDate(item.ngayThucHien || item.NgayThucHien)}</td>
-                    <td class="text-center text-nowrap">${item.quyen || item.Quyen || ''}</td>
-                    <td class="text-center text-nowrap">${item.soHD || item.SoHD || ''}</td>
-                    <td class="text-center text-nowrap">${item.soChungTu || item.SoChungTu || ''}</td>
-                    <td class="text-center text-nowrap">${item.thietBi || item.ThietBi || ''}</td>
-                    <td class="text-center text-nowrap">${item.doanhThu || item.DoanhThu || ''}</td>
-                    <td class="text-center text-nowrap">${item.baoHiem || item.BaoHiem || ''}</td>
-                    <td class="text-center text-nowrap">${item.daThanhToan || item.DaThanhToan || ''}</td>
-                   
+                    <td class="text-center text-nowrap">${item.maNguoiBenh ?? item.MaNguoiBenh ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.soVaoVien ?? item.SoVaoVien ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.maSoDot ?? item.MaSoDot ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.iCD ?? item.Icd ?? item.icd ?? item.ICD ?? ''}</td>
+                    <td class="text-left text-nowrap">${item.hoTen ?? item.HoTen ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.namSinh ?? item.NamSinh ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.gioiTinh ?? item.GioiTinh ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.soTheBHYT ?? item.SoTheBHYT ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.kCB_BD ?? item.Kcb_bd ?? item.kcB_BD ?? item.kcb_bd ?? item.KCB_BD ?? ''}</td>
+                    <td class="text-left text-nowrap">${item.doiTuong ?? item.DoiTuong ?? ''}</td>
+                    <td class="text-left text-nowrap">${item.noiChiDinh ?? item.NoiChiDinh ?? ''}</td>
+                    <td class="text-left text-nowrap">${item.bacSi ?? item.BacSi ?? ''}</td>
+                    <td class="text-left text-nowrap">${item.dichVu ?? item.DichVu ?? ''}</td>
+                    <td class="text-right text-nowrap">${item.soLuong ?? item.SoLuong ?? ''}</td>
+                    <td class="text-center text-nowrap">${formatDate(item.ngayYeuCau ?? item.NgayYeuCau)}</td>
+                    <td class="text-center text-nowrap">${formatDate(item.ngayThucHien ?? item.NgayThucHien)}</td>
+                    <td class="text-center text-nowrap">${item.quyen ?? item.Quyen ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.soHD ?? item.SoHD ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.soChungTu ?? item.SoChungTu ?? ''}</td>
+                    <td style="width: 120px;" class="text-left text-nowrap">${item.thietBi ?? item.ThietBi ?? ''}</td>
+                    <td class="text-right text-nowrap">
+                        ${Number(item.doanhThu ?? item.DoanhThu ?? 0).toLocaleString('vi-VN')}
+                    </td>
+                    <td class="text-right text-nowrap">
+                        ${Number(item.baoHiem ?? item.BaoHiem ?? 0).toLocaleString('vi-VN')}
+                    </td>
+                    <td class="text-right text-nowrap">
+                        ${Number(item.daThanhToan ?? item.DaThanhToan ?? 0).toLocaleString('vi-VN')}
+                    </td>
                 </tr>
             `;
+
             tbody.append(row);
         });
     } else {
@@ -198,8 +204,9 @@ function filterData(isPagination = false) {
 
     showSpinner();
     $('.table').css('opacity', '0.5');
+
     $.ajax({
-        url: '/benhnhanvip/filter',
+        url: '/danh_sach_nguoi_benh_thuc_hien_cls/filter',
         type: 'POST',
         data: {
             tuNgay: tuNgay,
@@ -208,16 +215,19 @@ function filterData(isPagination = false) {
             page: currentPage,
             pageSize: pageSize
         },
+        
         success: function (response) {
-            console.log("response = ", response);
+           
             if (response.success) {
                 updateTable(response);
                 window.filteredData = Array.isArray(response.data) ? response.data : (response.data ? [response.data] : []);
                 totalRecords = response.totalRecords || totalRecords;
                 totalPages = response.totalPages || totalPages;
                 window.doanhNghiep = response.doanhNghiep || null;
+                
             } else {
                 showToast("Có lỗi xảy ra khi lọc!", "error");
+                
             }
         },
         complete: function () {
@@ -231,7 +241,7 @@ function filterData(isPagination = false) {
 function ajaxFilterRequest(payload) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: '/benhnhanvip/filter',
+            url: '/danh_sach_nguoi_benh_thuc_hien_cls/filter',
             type: 'POST',
             data: payload,
             success: function (resp) {
@@ -332,7 +342,7 @@ function doExportExcel(finalData, btn, originalHtml) {
     };
 
     $.ajax({
-        url: '/benhnhanvip/export/excel',
+        url: '/danh_sach_nguoi_benh_thuc_hien_cls/export/excel',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(requestData),
@@ -346,7 +356,7 @@ function doExportExcel(finalData, btn, originalHtml) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `ThongKeBenhNhanVip_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.xlsx`;
+            a.download = `DSNguoiBenhThucHienCLS_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.xlsx`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -399,7 +409,7 @@ function doExportPdf(finalData, btnElem) {
         doanhNghiep: window.doanhNghiep || null
     };
 
-    fetch("/benhnhanvip/export/pdf", {
+    fetch("/danh_sach_nguoi_benh_thuc_hien_cls/export/pdf", {
         method: "POST",
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/pdf' },
         body: JSON.stringify(requestData)
@@ -412,7 +422,7 @@ function doExportPdf(finalData, btnElem) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = `ThongKeBenhNhanVip_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.pdf`;
+            a.download = `DSNguoiBenhThucHienCLS_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.pdf`;
             a.click();
             window.URL.revokeObjectURL(url);
             showToast('Xuất file pdf thành công', "success");
@@ -665,7 +675,7 @@ $('#selectGiaiDoan').change(function () {
 
             if (isEnter && currentHighlightIndex >= 0) {
                 const val = parseInt(items.eq(currentHighlightIndex).data('val'), 10);
-                console.log("val = ", val)
+               
                 selectItem(val);
                 return;
             }
@@ -851,7 +861,7 @@ function showToast(message, type = "success") {
     const body = toastEl.querySelector(".toast-body");
 
     body.innerText = message;
-    console.log(message);
+    
     toastEl.classList.remove("bg-success", "bg-danger", "bg-warning");
     if (type === "success") toastEl.classList.add("bg-success");
     if (type === "error") toastEl.classList.add("bg-danger");
