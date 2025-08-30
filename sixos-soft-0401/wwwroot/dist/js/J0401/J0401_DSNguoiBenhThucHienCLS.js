@@ -126,7 +126,7 @@ function updateTable(response) {
                     <td class="text-center text-nowrap">${item.soHD ?? item.SoHD ?? ''}</td>
                     <td class="text-center text-nowrap">${item.soChungTu ?? item.SoChungTu ?? ''}</td>
                     <td style="min-width: 320px; max-width:320px;">${item.thietBi ?? item.ThietBi ?? ''}</td>
-                    <td > class="text-end text-nowrap">
+                    <td class="text-end text-nowrap">
                         ${Number(item.doanhThu ?? item.DoanhThu ?? 0).toLocaleString('en-US')}
                     </td>
                     <td class="text-end text-nowrap">

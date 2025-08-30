@@ -19,4 +19,8 @@
     <PackageReference Include="QuestPDF" Version="2025.7.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\M0401\M0401_SoTuChoiMau\" />
+  </ItemGroup>
+
 </Project>

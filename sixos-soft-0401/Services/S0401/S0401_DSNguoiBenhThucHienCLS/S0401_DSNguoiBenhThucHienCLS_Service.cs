@@ -285,6 +285,7 @@ namespace sixos_soft_0401.Services.S0401.S0401_DSNguoiBenhThucHienCLS
                 worksheet.Cell(currentRow, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 worksheet.Cell(currentRow, 7).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 worksheet.Cell(currentRow, 8).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                worksheet.Cell(currentRow, 9).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 worksheet.Cell(currentRow, 10).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 worksheet.Cell(currentRow, 15).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
                 worksheet.Cell(currentRow, 16).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -316,8 +317,8 @@ namespace sixos_soft_0401.Services.S0401.S0401_DSNguoiBenhThucHienCLS
             worksheet.Column(13).Width = 26; // Bác sĩ
             worksheet.Column(14).Width = 18; // Dịch vụ
             worksheet.Column(15).Width = 10; // Số lượng
-            worksheet.Column(16).Width = 13; // Ngày yêu cầu
-            worksheet.Column(17).Width = 13; // Ngày thực hiện
+            worksheet.Column(16).Width = 14; // Ngày yêu cầu
+            worksheet.Column(17).Width = 15; // Ngày thực hiện
             worksheet.Column(18).Width = 15; // Quyển
             worksheet.Column(19).Width = 15; // Số HĐ
             worksheet.Column(20).Width = 12; // Số chứng từ
