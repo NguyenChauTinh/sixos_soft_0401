@@ -10,6 +10,7 @@ namespace sixos_soft_0401.Models.M0401.M0401_TheKhoDuoc
         public long ID { get; set; }  // bigint, tự động tăng
         public long? IdChiNhanh { get; set; }
         public long? IdKho { get; set; }
+        public string? TenKho { get; set; } = string.Empty; //
         public string? TenDuoc { get; set; } = string.Empty; //
         public string? MaDuoc { get; set; } = string.Empty; //
         public DateTime? NgayThangGhiSo { get; set; }

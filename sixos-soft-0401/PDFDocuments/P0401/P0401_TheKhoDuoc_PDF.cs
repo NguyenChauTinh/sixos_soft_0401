@@ -139,16 +139,22 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                             r.ConstantColumn(0.25f);
                         });
 
+                        var firstData = _data.FirstOrDefault();
+
+                        var tenKho = firstData?.TenKho ?? "Chưa có tên kho";
+
                         column.Item().Row(r =>
                         {
                             r.ConstantColumn(0.25f);
                             r.RelativeColumn().Column(column =>
                             {
-                                column.Item().PaddingTop(5).PaddingBottom(5).AlignLeft().Text($"Tên kho: Kho nội tuyến vú tiêu hóa A").FontSize(8).Bold();
+                                column.Item().PaddingTop(5).PaddingBottom(5).AlignLeft()
+                                      .Text($"Tên kho: {tenKho}").FontSize(8).Bold();
                             });
 
                             r.ConstantColumn(0.25f);
                         });
+
 
                         var culture = new CultureInfo("en-US"); // Hoặc "en-US" tùy yêu cầu
 
@@ -446,7 +452,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                             .AlignLeft()
                             .Text(x =>
                             {
-                                x.Span($"In ngày: ({DateTime.Now:dd-MM-yyyy hh:mm:ss})"); // Định dạng ngày giờ
+                                x.Span($"In ngày: {DateTime.Now:dd-MM-yyyy hh:mm:ss}"); // Định dạng ngày giờ
                             });
 
                         // Cột bên phải: Số trang

@@ -207,9 +207,11 @@ namespace sixos_soft_0401.Services.S0401.S0401_TheKhoDuoc
             worksheet.Cell("F3").Style.Font.FontSize = 10;
             worksheet.Cell("F3").Style.Font.Bold = true;
 
+            // Giá trị đầu tiên
+            var firstItem = data.FirstOrDefault();
 
             worksheet.Range("A8:E8").Merge();
-            worksheet.Cell("A8").Value = $"Tên kho: Kho nội tuyến vú tiêu hóa A";
+            worksheet.Cell("A8").Value = $"Tên kho: {firstItem.TenKho}";
             worksheet.Cell("A8").Style.Font.FontSize = 11;
 
             // Kích thước cột
@@ -277,7 +279,7 @@ namespace sixos_soft_0401.Services.S0401.S0401_TheKhoDuoc
 
 
 
-            var firstItem = data.FirstOrDefault();
+            
             // Merge từ cột 1 (A) đến cột 14 (N) ở dòng currentRow
             var range = worksheet.Range(currentRow, 1, currentRow, 14);
             range.Merge();

@@ -326,7 +326,7 @@ namespace sixos_soft_0401.Services.S0401.S0401_DSNguoiBenhThucHienCLS
             // 3. Set khoảng cách riêng cho từng cột
             worksheet.Column(1).Width = 9;   // STT
             worksheet.Column(2).Width = 16;  // Mã người bệnh
-            worksheet.Column(3).Width = 12;  // Số vào viện
+            worksheet.Column(3).Width = 16;  // Số vào viện
             worksheet.Column(4).Width = 12;  // Mã số đợt
             worksheet.Column(5).Width = 10;  // ICD
             worksheet.Column(6).Width = 30;  // Họ tên
@@ -337,7 +337,7 @@ namespace sixos_soft_0401.Services.S0401.S0401_DSNguoiBenhThucHienCLS
             worksheet.Column(11).Width = 20; // Đối tượng
             worksheet.Column(12).Width = 28; // Nơi chỉ định
             worksheet.Column(13).Width = 26; // Bác sĩ
-            worksheet.Column(14).Width = 18; // Dịch vụ
+            worksheet.Column(14).Width = 48; // Dịch vụ
             worksheet.Column(15).Width = 10; // Số lượng
             worksheet.Column(16).Width = 20; // Ngày yêu cầu
             worksheet.Column(17).Width = 20; // Ngày thực hiện
