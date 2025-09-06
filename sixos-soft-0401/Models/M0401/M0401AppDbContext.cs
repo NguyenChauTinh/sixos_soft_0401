@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using sixos_soft_0401.Models.M0401.M0401_DSNguoiBenhThucHienCLS;
 using sixos_soft_0401.Models.M0401.M0401_SoTuChoiMau;
+using sixos_soft_0401.Models.M0401.M0401_TheKhoDuoc;
 
 namespace sixos_soft_0401.Models.M0401
 {
@@ -9,6 +10,7 @@ namespace sixos_soft_0401.Models.M0401
         public M0401AppDbContext(DbContextOptions<M0401AppDbContext> options) : base(options) { }
         public DbSet<M0401_DSNguoiBenhThucHienCLS_Model> T0401_DSNguoiBenhThucHienCLS { get; set; }
         public DbSet<M0401_SoTuChoiMau_Model> T0401_SoTuChoiMau { get; set; }
+        public DbSet<M0401_TheKhoDuoc_Model> T0401_TheKhoDuoc { get; set; }
         public DbSet<M0401_ThongTinDoanhNghiep> ThongTinDoanhNghiep { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,6 +18,7 @@ namespace sixos_soft_0401.Models.M0401
             modelBuilder.Entity<M0401_ThongTinDoanhNghiep>().HasNoKey();
             modelBuilder.Entity<M0401_DSNguoiBenhThucHienCLS_Model>().HasNoKey();
             modelBuilder.Entity<M0401_SoTuChoiMau_Model>().HasNoKey();
+            modelBuilder.Entity<M0401_TheKhoDuoc_Model>().HasNoKey();
 
         }
         public bool TestConnection()

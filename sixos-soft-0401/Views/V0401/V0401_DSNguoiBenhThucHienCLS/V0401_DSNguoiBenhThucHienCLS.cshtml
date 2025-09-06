@@ -6,7 +6,7 @@
 @using sixos_soft_0401.Models.M0401.M0401_DSNguoiBenhThucHienCLS;
 @using sixos_soft_0401.Models.M0401;
 <div class="card p-1 d-flex " style="height: 86vh;position: relative;">
-	<div class="row px-3 g-0 h-100">
+	<div class="row g-0 h-100">
 		<div class="col-3 p-2">
 			<div class="border">
 				<div class="p-2">
@@ -73,7 +73,7 @@
 						<button id="btnExportPDF" class="btn btn-outline-danger" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
 							<i class="bi bi-file-earmark-pdf"></i> Xuất PDF
 						</button>
-						<button id="btnExportExcel" class="btn btn-outline-success" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
+						<button id="btnExportExcel" class="btn btn-outline-success" style="width: 45%; font-size: 14px" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
 							<i class="bi bi-file-earmark-excel"></i> Xuất Excel
 						</button>
 					</div>

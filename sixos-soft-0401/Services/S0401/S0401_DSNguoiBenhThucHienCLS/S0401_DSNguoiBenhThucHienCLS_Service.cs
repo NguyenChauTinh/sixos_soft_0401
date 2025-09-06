@@ -258,8 +258,30 @@ namespace sixos_soft_0401.Services.S0401.S0401_DSNguoiBenhThucHienCLS
                 worksheet.Cell(currentRow, 13).Value = item.BacSi;
                 worksheet.Cell(currentRow, 14).Value = item.DichVu;
                 worksheet.Cell(currentRow, 15).Value = item.SoLuong;
-                worksheet.Cell(currentRow, 16).Value = item.NgayYeuCau?.ToString("dd-MM-yyyy");
-                worksheet.Cell(currentRow, 17).Value = item.NgayThucHien?.ToString("dd-MM-yyyy");
+
+                Console.WriteLine($"Processing row {currentRow}: NgayYeuCau = {item.NgayYeuCau}, NgayThucHien = {item.NgayThucHien}");
+
+                if (item.NgayYeuCau.HasValue)
+                {
+                    worksheet.Cell(currentRow, 16).Value = item.NgayYeuCau.Value;
+                    worksheet.Cell(currentRow, 16).Style.DateFormat.Format = "HH:mm:ss dd-MM-yyyy";
+                }
+                else
+                {
+                    worksheet.Cell(currentRow, 16).Value = "-";
+                }
+                
+                if (item.NgayThucHien.HasValue)
+                {
+                    worksheet.Cell(currentRow, 17).Value = item.NgayThucHien.Value;
+                    worksheet.Cell(currentRow, 17).Style.DateFormat.Format = "HH:mm:ss dd-MM-yyyy";
+                }
+                else
+                {
+                    worksheet.Cell(currentRow, 16).Style.DateFormat.Format = "dd-MM-yyyy HH:mm:ss";
+
+                    worksheet.Cell(currentRow, 17).Value = "-";
+                }
                 worksheet.Cell(currentRow, 18).Value = item.Quyen;
                 worksheet.Cell(currentRow, 19).Value = item.SoHD;
                 worksheet.Cell(currentRow, 20).Value = item.SoChungTu;
@@ -317,8 +339,8 @@ namespace sixos_soft_0401.Services.S0401.S0401_DSNguoiBenhThucHienCLS
             worksheet.Column(13).Width = 26; // Bác sĩ
             worksheet.Column(14).Width = 18; // Dịch vụ
             worksheet.Column(15).Width = 10; // Số lượng
-            worksheet.Column(16).Width = 14; // Ngày yêu cầu
-            worksheet.Column(17).Width = 15; // Ngày thực hiện
+            worksheet.Column(16).Width = 20; // Ngày yêu cầu
+            worksheet.Column(17).Width = 20; // Ngày thực hiện
             worksheet.Column(18).Width = 15; // Quyển
             worksheet.Column(19).Width = 15; // Số HĐ
             worksheet.Column(20).Width = 12; // Số chứng từ

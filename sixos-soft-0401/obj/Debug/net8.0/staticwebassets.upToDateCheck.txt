@@ -33,6 +33,7 @@ wwwroot\dist\img\logo.png
 wwwroot\dist\js\BienChung.js
 wwwroot\dist\js\J0401\J0401QL_NoiDungHen.js
 wwwroot\dist\js\J0401\J0401_DSNguoiBenhThucHienCLS.js
+wwwroot\dist\js\J0401\J0401_SoTuChoiMau.js
 wwwroot\dist\lib\apexcharts\dist\apexcharts.amd.js
 wwwroot\dist\lib\apexcharts\dist\apexcharts.common.js
 wwwroot\dist\lib\apexcharts\dist\apexcharts.css
@@ -1202,4 +1203,4 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\dist\js\J0401\J0401_SoTuChoiMau.js
+wwwroot\dist\js\J0401\J0401_TheKhoDuoc.js

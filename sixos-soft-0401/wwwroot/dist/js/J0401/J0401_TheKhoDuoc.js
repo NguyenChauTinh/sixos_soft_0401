@@ -83,7 +83,7 @@ function formatDate(dateString) {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    return `${hours}:${minutes}:${seconds} ${day}-${month}-${year}`;
+    return `${day}-${month}-${year}`;
 }
 
 // ==================== CẬP NHẬT BẢNG ====================
@@ -104,6 +104,8 @@ function updateTable(response) {
     } else if (response && response.data) {
         data = Array.isArray(response.data) ? response.data : [response.data];
     }
+
+    console.log('Filtered Data:', data);
     
     if (data.length > 0) {
         data.forEach((item, index) => {
@@ -112,34 +114,31 @@ function updateTable(response) {
             const row = `
                 <tr>
                     <td class="text-center text-nowrap">${stt}</td>
-                    <td class="text-center text-nowrap">${item.maNguoiBenh ?? item.MaNguoiBenh ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.soVaoVien ?? item.SoVaoVien ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.maSoDot ?? item.MaSoDot ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.iCD ?? item.Icd ?? item.icd ?? item.ICD ?? ''}</td>
-                    <td class="text-start text-nowrap">${item.hoTen ?? item.HoTen ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.namSinh ?? item.NamSinh ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.gioiTinh ?? item.GioiTinh ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.soTheBHYT ?? item.SoTheBHYT ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.kCB_BD ?? item.Kcb_bd ?? item.kcB_BD ?? item.kcb_bd ?? item.KCB_BD ?? ''}</td>
-                    <td class="text-start text-nowrap">${item.doiTuong ?? item.DoiTuong ?? ''}</td>
-                    <td class="text-start text-nowrap">${item.noiChiDinh ?? item.NoiChiDinh ?? ''}</td>
-                    <td class="text-start text-nowrap">${item.bacSi ?? item.BacSi ?? ''}</td>
-                    <td class="text-start text-nowrap">${item.dichVu ?? item.DichVu ?? ''}</td>
-                    <td class="text-end text-nowrap">${item.soLuong ?? item.SoLuong ?? ''}</td>
-                    <td class="text-center text-nowrap">${formatDate(item.ngayYeuCau ?? item.NgayYeuCau)}</td>
-                    <td class="text-center text-nowrap">${formatDate(item.ngayThucHien ?? item.NgayThucHien)}</td>
-                    <td class="text-center text-nowrap">${item.quyen ?? item.Quyen ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.soHD ?? item.SoHD ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.soChungTu ?? item.SoChungTu ?? ''}</td>
-                    <td style="min-width: 320px; max-width:320px;">${item.thietBi ?? item.ThietBi ?? ''}</td>
+                    <td class="text-center text-nowrap">${formatDate(item.ngayThangGhiSo ?? item.NgayThangGhiSo ?? '')}</td>
+                    <td class="text-start text-nowrap">${item.chungTuSoHieu ?? item.ChungTuSoHieu ?? ''}</td>
+                    <td class="text-center text-nowrap">${formatDate(item.chungTuNgayThang ?? item.ChungTuNgayThang ?? '')}</td>
+                    <td class="text-center text-nowrap">${item.soLo ?? item.SoLo ?? ''}</td>
+                    <td class="text-center text-nowrap">${formatDate(item.hanDung ?? item.HanDung ?? '')}</td>
+                    <td class="text-start text-nowrap">${item.dienGiai ?? item.DienGiai ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.DVT ?? item.dVT ?? item.dvt ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.dVTQuiCach ?? item.DVTQuiCach ?? item.dvtQuiCach ?? ''}</td>
                     <td class="text-end text-nowrap">
-                        ${Number(item.doanhThu ?? item.DoanhThu ?? 0).toLocaleString('en-US')}
+                        ${Number(item.nhapGoc ?? item.NhapGoc ?? 0).toLocaleString('en-US')}
                     </td>
                     <td class="text-end text-nowrap">
-                        ${Number(item.baoHiem ?? item.BaoHiem ?? 0).toLocaleString('en-US')}
+                        ${Number(item.nhap ?? item.NhapGoc ?? 0).toLocaleString('en-US')}
                     </td>
                     <td class="text-end text-nowrap">
-                        ${Number(item.daThanhToan ?? item.DaThanhToan ?? 0).toLocaleString('en-US')}
+                        ${Number(item.xuat ?? item.Xuat ?? 0).toLocaleString('en-US')}
+                    </td>
+                    <td class="text-end text-nowrap">
+                        ${Number(item.xuatGoc ?? item.XuatGoc ?? 0).toLocaleString('en-US')}
+                    </td>
+                     <td class="text-end text-nowrap">
+                        ${Number(item.ton ?? item.Ton ?? 0).toLocaleString('en-US')}
+                    </td>
+                    <td class="text-end text-nowrap">
+                        ${Number(item.tonGoc ?? item.TonGoc ?? 0).toLocaleString('en-US')}
                     </td>
                 </tr>
             `;
@@ -212,12 +211,13 @@ function filterData(isPagination = false) {
     $('.table').css('opacity', '0.5');
 
     $.ajax({
-        url: '/danh_sach_nguoi_benh_thuc_hien_cls/filter',
+        url: '/the_kho_duoc/filter',
         type: 'POST',
         data: {
             tuNgay: tuNgay,
             denNgay: denNgay,
             IdChiNhanh: _idcn,
+            IdKho: _idKho,
             page: currentPage,
             pageSize: pageSize
         },
@@ -247,7 +247,7 @@ function filterData(isPagination = false) {
 function ajaxFilterRequest(payload) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: '/danh_sach_nguoi_benh_thuc_hien_cls/filter',
+            url: '/the_kho_duoc/filter',
             type: 'POST',
             data: payload,
             success: function (resp) {
@@ -268,6 +268,7 @@ function fetchAllFilteredData(tuNgay, denNgay) {
             tuNgay: tuNgay || '',
             denNgay: denNgay || '',
             IdChiNhanh: _idcn,
+            IdKho: _idKho,
             page: 1,
             pageSize: pageSize
         };
@@ -291,6 +292,7 @@ function fetchAllFilteredData(tuNgay, denNgay) {
                     tuNgay: tuNgay || '',
                     denNgay: denNgay || '',
                     IdChiNhanh: _idcn,
+                    IdKho: _idKho,
                     page: p,
                     pageSize: pageSize
                 };
@@ -348,7 +350,7 @@ function doExportExcel(finalData, btn, originalHtml) {
     };
 
     $.ajax({
-        url: '/danh_sach_nguoi_benh_thuc_hien_cls/export/excel',
+        url: '/the_kho_duoc/export/excel',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(requestData),
@@ -362,7 +364,7 @@ function doExportExcel(finalData, btn, originalHtml) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `DSNguoiBenhThucHienCLS_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.xlsx`;
+            a.download = `TheKhoDuoc_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.xlsx`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -415,7 +417,7 @@ function doExportPdf(finalData, btnElem) {
         doanhNghiep: window.doanhNghiep || null
     };
 
-    fetch("/danh_sach_nguoi_benh_thuc_hien_cls/export/pdf", {
+    fetch("/the_kho_duoc/export/pdf", {
         method: "POST",
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/pdf' },
         body: JSON.stringify(requestData)
@@ -428,7 +430,7 @@ function doExportPdf(finalData, btnElem) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = `DSNguoiBenhThucHienCLS_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.pdf`;
+            a.download = `TheKhoDuoc_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.pdf`;
             a.click();
             window.URL.revokeObjectURL(url);
             showToast('Xuất file pdf thành công', "success");

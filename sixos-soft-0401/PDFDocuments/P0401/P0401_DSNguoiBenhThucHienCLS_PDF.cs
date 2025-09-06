@@ -102,7 +102,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                     {
                                         nationalColumn.Item()
                                               .AlignCenter()
-                                              .Text("DANH SÁCH NGƯỜI BỆNH THỰC HIỆN CHUẨN LÂM SÀNG")
+                                              .Text("DANH SÁCH NGƯỜI BỆNH THỰC HIỆN CẬN LÂM SÀNG")
                                               .FontFamily("Times New Roman")
                                               .FontSize(11)
                                               .Bold()
@@ -121,9 +121,9 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                                  text.DefaultTextStyle(TextStyle.Default.FontSize(9).SemiBold());
 
                                                  if (_fromDate == _toDate)
-                                                     text.Span($"Ngày: {_fromDate}");
+                                                     text.Span($"Ngày: {_fromDate} 00:00:00");
                                                  else
-                                                     text.Span($"Từ ngày: {_fromDate} đến ngày: {_toDate}");
+                                                     text.Span($"Từ ngày: {_fromDate} 00:00:00 Đến ngày: {_toDate} 00:00:00");
                                              });
                                     });
                             });
@@ -199,8 +199,16 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                     table.Cell().Element(c => CellStyle(c)).Text(item.BacSi);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.DichVu);
                                     table.Cell().Element(c => CellStyle(c)).AlignRight().Text(item.SoLuong);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.NgayYeuCau?.ToString("dd-MM-yyyy"));
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.NgayThucHien?.ToString("dd-MM-yyyy"));
+                                    
+                                    table.Cell()
+                                        .Element(c => CellStyle(c))
+                                        .AlignCenter()
+                                        .Text(item.NgayYeuCau?.ToString("HH:mm:ss dd-MM-yyyy"));
+                                    table.Cell()
+                                        .Element(c => CellStyle(c))
+                                        .AlignCenter()
+                                        .Text(item.NgayThucHien?.ToString("HH:mm:ss dd-MM-yyyy"));
+                                    
                                     table.Cell().Element(c => CellStyle(c)).Text(item.Quyen);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.SoHD);
                                     table.Cell().Element(c => CellStyle(c)).Text(item.SoChungTu);
