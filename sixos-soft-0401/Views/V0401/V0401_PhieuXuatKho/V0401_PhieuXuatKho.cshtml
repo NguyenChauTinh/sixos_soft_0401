@@ -1,0 +1,33 @@
+﻿@{
+	ViewData["NonSixOs"] = true;
+	ViewData["Title"] = "Phiếu xuất kho";
+}
+
+@using sixos_soft_0401.Models.M0401.M0401_PhieuXuatKho;
+@using sixos_soft_0401.Models.M0401;
+<div class="card p-1 d-flex " style="height: 86vh;position: relative;">
+	<div class="row g-0 h-100">
+
+
+		<button id="btnExportPDF" class="btn btn-outline-danger" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
+			<i class="bi bi-file-earmark-pdf"></i> Xuất PDF
+		</button>
+
+	</div>
+</div>
+
+
+
+
+
+@section Scripts {
+	<link rel="stylesheet" href="~/dist/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" href="~/dist/css/CSS0401/CSS_DSNguoiThucHienCLS.css" asp-append-version="true">
+
+	<script src="~/dist/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+	<script src="~/dist/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" defer></script>
+	<script src="~/dist/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.vi.min.js" defer></script>
+	<script src="~/dist/js/J0401/J0401_PhieuXuatKho.js" asp-append-version="true" defer></script>
+
+
+}

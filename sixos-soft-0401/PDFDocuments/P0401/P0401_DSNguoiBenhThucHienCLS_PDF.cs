@@ -67,7 +67,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                 page.Size(PageSizes.A4.Landscape());
                 page.Margin(20);
                 page.PageColor(Colors.White);
-                page.DefaultTextStyle(x => x.FontSize(10).FontColor(Colors.Black));
+                page.DefaultTextStyle(x => x.FontFamily("Times New Roman").FontSize(10).FontColor(Colors.Black));
 
                 page.Content()
                     .Column(column =>
@@ -91,7 +91,8 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                             .PaddingLeft(2)
                                             .Column(infoColumn =>
                                             {
-                                                infoColumn.Item().Text(_thongTinDoanhNghiep.TenCSKCB ?? "").Bold().FontSize(12);
+                                                infoColumn.Spacing(2);
+                                                infoColumn.Item().Text(_thongTinDoanhNghiep.TenCSKCB ?? "").Bold().FontSize(10);
                                                 infoColumn.Item().Text($"Địa chỉ: {_thongTinDoanhNghiep.DiaChi ?? ""}").FontSize(10);
                                                 infoColumn.Item().Text($"Điện thoại: {_thongTinDoanhNghiep.DienThoai ?? ""}").FontSize(10);
                                                 infoColumn.Item().Text($"Email: {_thongTinDoanhNghiep.Email ?? ""}").FontSize(10);
@@ -100,30 +101,29 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                 row.RelativeColumn(0.4f)
                                     .Column(nationalColumn =>
                                     {
+                                        nationalColumn.Spacing(2);
                                         nationalColumn.Item()
-                                              .AlignCenter()
+                                              .AlignRight()
                                               .Text("DANH SÁCH NGƯỜI BỆNH THỰC HIỆN CẬN LÂM SÀNG")
-                                              .FontFamily("Times New Roman")
-                                              .FontSize(11)
+                                              .FontSize(10)
                                               .Bold()
                                               .FontColor(Colors.Blue.Darken2);
 
                                         nationalColumn.Item()
                                             .AlignRight()
                                             .Text("Đơn vị thống kê")
-                                            .FontSize(10)
-                                            .FontFamily("Times New Roman");
+                                            .FontSize(10);
 
                                         nationalColumn.Item()
                                              .AlignRight()
                                              .Text(text =>
                                              {
-                                                 text.DefaultTextStyle(TextStyle.Default.FontSize(9).SemiBold());
+                                                 text.DefaultTextStyle(TextStyle.Default.FontSize(8).SemiBold());
 
                                                  if (_fromDate == _toDate)
-                                                     text.Span($"Ngày: {_fromDate} 00:00:00");
+                                                     text.Span($"Ngày: 00:00:00 {_fromDate}");
                                                  else
-                                                     text.Span($"Từ ngày: {_fromDate} 00:00:00 Đến ngày: {_toDate} 00:00:00");
+                                                     text.Span($"Từ ngày: 00:00:00 {_fromDate} Đến ngày: 00:00:00 {_toDate}");
                                              });
                                     });
                             });
@@ -169,9 +169,9 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                     {
                                         header.Cell().Element(c =>
                                         {
-                                            c.Background(Colors.Grey.Lighten3)
+                                            c.Background(Colors.Grey.Lighten4)
                                              .Border(1)
-                                             .BorderColor(Colors.Grey.Darken1)
+                                             .BorderColor(Colors.Grey.Medium)
                                              .Padding(2)
                                              .AlignCenter()
                                              .Text(h)
@@ -184,46 +184,48 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                 int stt = 1;
                                 foreach (var item in _data)
                                 {
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(stt++);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.MaNguoiBenh);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.SoVaoVien);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.MaSoDot);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.ICD);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.HoTen);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.NamSinh);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.GioiTinh);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.SoTheBHYT);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.KCB_BD);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.DoiTuong);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.NoiChiDinh);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.BacSi);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.DichVu);
-                                    table.Cell().Element(c => CellStyle(c)).AlignRight().Text(item.SoLuong);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(stt++);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.MaNguoiBenh);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.SoVaoVien);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.MaSoDot);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.ICD);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.HoTen);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.NamSinh);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.GioiTinh);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.SoTheBHYT);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.KCB_BD);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.DoiTuong);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.NoiChiDinh);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.BacSi);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.DichVu);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignRight().Text(item.SoLuong);
                                     
                                     table.Cell()
                                         .Element(c => CellStyle(c))
+                                        .ShowEntire()
                                         .AlignCenter()
                                         .Text(item.NgayYeuCau?.ToString("HH:mm:ss dd-MM-yyyy"));
                                     table.Cell()
                                         .Element(c => CellStyle(c))
+                                        .ShowEntire()
                                         .AlignCenter()
                                         .Text(item.NgayThucHien?.ToString("HH:mm:ss dd-MM-yyyy"));
                                     
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.Quyen);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.SoHD);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.SoChungTu);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.ThietBi);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.Quyen);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.SoHD);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.SoChungTu);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.ThietBi);
                                     var culture = new CultureInfo("en-US"); // Hoặc "en-US" tùy yêu cầu
 
-                                    table.Cell().Element(c => CellStyle(c))
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c))
                                         .AlignRight()
                                         .Text(item.DoanhThu?.ToString("N0", culture));
 
-                                    table.Cell().Element(c => CellStyle(c))
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c))
                                         .AlignRight()
                                         .Text(item.BaoHiem?.ToString("N0", culture));
 
-                                    table.Cell().Element(c => CellStyle(c))
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c))
                                         .AlignRight()
                                         .Text(item.DaThanhToan?.ToString("N0", culture));
                                 }

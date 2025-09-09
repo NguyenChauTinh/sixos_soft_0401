@@ -64,10 +64,13 @@ namespace sixos_soft_0401.PDFDocuments.P0401
         {
             container.Page(page =>
             {
+                page.DefaultTextStyle(x =>
+                    x.FontFamily("Times New Roman")
+                     .FontSize(10)
+                     .FontColor(Colors.Black)
+                );
                 page.Size(PageSizes.A4.Landscape());
                 page.Margin(20);
-                page.PageColor(Colors.White);
-                page.DefaultTextStyle(x => x.FontSize(10).FontColor(Colors.Black));
 
                 page.Content()
                     .Column(column =>
@@ -91,7 +94,8 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                             .PaddingLeft(2)
                                             .Column(infoColumn =>
                                             {
-                                                infoColumn.Item().Text(_thongTinDoanhNghiep.TenCSKCB ?? "").Bold().FontSize(12);
+                                                infoColumn.Spacing(2);
+                                                infoColumn.Item().Text(_thongTinDoanhNghiep.TenCSKCB ?? "").Bold().FontSize(10);
                                                 infoColumn.Item().Text($"Địa chỉ: {_thongTinDoanhNghiep.DiaChi ?? ""}").FontSize(10);
                                                 infoColumn.Item().Text($"Điện thoại: {_thongTinDoanhNghiep.DienThoai ?? ""}").FontSize(10);
                                                 infoColumn.Item().Text($"Email: {_thongTinDoanhNghiep.Email ?? ""}").FontSize(10);
@@ -100,11 +104,12 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                 row.RelativeColumn(0.4f)
                                     .Column(nationalColumn =>
                                     {
+                                        nationalColumn.Spacing(2);
                                         nationalColumn.Item()
-                                              .AlignCenter()
+                                              .AlignRight()
                                               .Text("DANH SÁCH NGƯỜI BỆNH THỰC HIỆN CHUẨN LÂM SÀNG")
                                               .FontFamily("Times New Roman")
-                                              .FontSize(11)
+                                              .FontSize(10)
                                               .Bold()
                                               .FontColor(Colors.Blue.Darken2);
 
@@ -118,12 +123,12 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                              .AlignRight()
                                              .Text(text =>
                                              {
-                                                 text.DefaultTextStyle(TextStyle.Default.FontSize(9).SemiBold());
+                                                 text.DefaultTextStyle(TextStyle.Default.FontSize(8).SemiBold());
 
                                                  if (_fromDate == _toDate)
-                                                     text.Span($"Ngày: {_fromDate} 00:00:00");
+                                                     text.Span($"Ngày: 00:00:00 {_fromDate}");
                                                  else
-                                                     text.Span($"Từ ngày: {_fromDate} 00:00:00 Đến ngày: {_toDate} 00:00:00");
+                                                     text.Span($"Từ ngày: 00:00:00{_fromDate} Đến ngày: 00:00:00 {_toDate}");
                                              });
                                     });
                             });
@@ -154,9 +159,9 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                     {
                                         header.Cell().Element(c =>
                                         {
-                                            c.Background(Colors.Grey.Lighten3)
-                                             .Border(1)
-                                             .BorderColor(Colors.Grey.Darken1)
+                                             c.Border(1)
+                                             .Background(Colors.Grey.Lighten4)
+                                             .BorderColor(Colors.Grey.Medium)
                                              .Padding(2)
                                              .AlignCenter()
                                              .Text(h)
@@ -169,18 +174,18 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                 int stt = 1;
                                 foreach (var item in _data)
                                 {
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(stt++);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.MaYTe);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.TenBenhNhan);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.Nam);
-                                    table.Cell().Element(c => CellStyle(c)).AlignCenter().Text(item.Nu);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.KhoaPhong);
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.NguoiTuChoi);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(stt++);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.MaYTe);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.TenBenhNhan);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.Nam);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).AlignCenter().Text(item.Nu);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.KhoaPhong);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.NguoiTuChoi);
                                     table.Cell()
                                         .Element(c => CellStyle(c))
                                         .AlignCenter()
                                         .Text(item.ThoiGianTuChoi?.ToString("HH:mm:ss dd-MM-yyyy"));
-                                    table.Cell().Element(c => CellStyle(c)).Text(item.LyDoTuChoi);
+                                    table.Cell().ShowEntire().Element(c => CellStyle(c)).Text(item.LyDoTuChoi);
 
                                 }
                             });

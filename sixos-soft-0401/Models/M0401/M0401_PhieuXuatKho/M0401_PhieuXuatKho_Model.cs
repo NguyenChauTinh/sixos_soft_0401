@@ -9,9 +9,7 @@ namespace sixos_soft_0401.Models.M0401.M0401_PhieuXuatKho
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }  // bigint, tự động tăng
         public long? IdChiNhanh { get; set; }
-        public long? IdKho { get; set; }
-
-
+        public long? IdPhieuXuatKho { get; set; }
         public DateTime? NgayChungTu { get; set; }
         public string? SoChungTu { get; set; } = string.Empty; 
         public string? NguoiNhanHang { get; set; } = string.Empty; 
@@ -27,10 +25,10 @@ namespace sixos_soft_0401.Models.M0401.M0401_PhieuXuatKho
         public string? DVTQD { get; set; } = string.Empty;
         public string? SoLo { get; set; } = string.Empty;
         public DateTime? HanDung { get; set; }
-        public int? SoLuongQD { get; set; }
-        public int? SoLuongYeuCau { get; set; }
-        public int? SoLuongThucXuat { get; set; }
+        public double? SoLuongQD { get; set; }
+        public double? SoLuongYeuCau { get; set; }
+        public double? SoLuongThucXuat { get; set; }
         public double? DonGia { get; set; }
-        public double? TonGoc { get; set; }
+        public double? ThanhTien { get; set; }
     }
 }

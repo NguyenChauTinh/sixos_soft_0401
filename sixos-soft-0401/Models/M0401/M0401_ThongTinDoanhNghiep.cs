@@ -7,7 +7,6 @@ namespace sixos_soft_0401.Models.M0401
     {
         [Key]
         public long ID { get; set; }
-
         public string MaCSKCB { get; set; }
         public string TenCSKCB { get; set; }
         public string DiaChi { get; set; }
