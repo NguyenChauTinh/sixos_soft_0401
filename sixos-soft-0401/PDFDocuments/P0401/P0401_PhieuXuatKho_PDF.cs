@@ -89,7 +89,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                                 infoColumn.Item().Text($"Địa chỉ: {_thongTinDoanhNghiep.DiaChi ?? ""}").FontSize(10);
                                                 infoColumn.Item().Text($"Điện thoại: {_thongTinDoanhNghiep.DienThoai ?? ""}").FontSize(10);
                                                 infoColumn.Item().Text($"Email: {_thongTinDoanhNghiep.Email ?? ""}").FontSize(10);
-                                                infoColumn.Item().Text("Mã QHNS:").FontSize(10);
+                                                infoColumn.Item().Text("Mã QHNS:").FontSize(10).Bold();
                                             });
                                     });
 
@@ -134,20 +134,32 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                       .Bold();
 
                                 column.Item()
-                                     .AlignCenter()
-                                     .Text(text =>
-                                     {
-                                         text.DefaultTextStyle(TextStyle.Default.FontSize(10));
-                                         text.Span($"Ngày chứng từ: {firstData?.NgayChungTu:dd-MM-yyyy}");
-                                     });
+                                        .AlignCenter()
+                                        .Text(text =>
+                                        {
+                                            text.DefaultTextStyle(TextStyle.Default.FontSize(10));
+
+                                            // Nhãn in đậm
+                                            text.Span("Ngày chứng từ: ");
+
+                                            // Giá trị không in đậm
+                                            text.Span($"{firstData?.NgayChungTu:dd-MM-yyyy}").Bold();
+                                        });
+
 
                                 column.Item()
-                                     .AlignCenter()
-                                     .Text(text =>
-                                     {
-                                         text.DefaultTextStyle(TextStyle.Default.FontSize(10));
-                                         text.Span($"Số chứng từ: {firstData?.SoChungTu}");
-                                     });
+                                    .AlignCenter()
+                                    .Text(text =>
+                                    {
+                                        text.DefaultTextStyle(TextStyle.Default.FontSize(10));
+
+                                        // Phần nhãn in đậm
+                                        text.Span("Số chứng từ: ");
+
+                                        // Phần giá trị không in đậm
+                                        text.Span($"{firstData?.SoChungTu}").Bold();
+                                    });
+
                             });
 
                             r.ConstantItem(0.25f);
@@ -166,23 +178,29 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                     {
 
                                         innerRow.RelativeItem()
-                                            
                                             .Column(infoColumn =>
                                             {
                                                 infoColumn.Spacing(4);
 
-                                                void AddRow(string label, string value)
+                                                void AddRow(string label, string? value)
                                                 {
                                                     infoColumn.Item().Row(row =>
                                                     {
                                                         row.RelativeItem(5)
-                                                           .Text(label).FontSize(10).AlignLeft();
+                                                           .Text(label)
+                                                           .FontSize(10)        // Label thường
+                                                           .AlignLeft();
 
                                                         row.ConstantItem(5)
-                                                           .Text(":").FontSize(10).AlignCenter();
+                                                           .Text(":")
+                                                           .FontSize(10)
+                                                           .AlignCenter();
 
                                                         row.RelativeItem(10)
-                                                           .Text(value ?? "").FontSize(10).AlignLeft();
+                                                           .Text(value ?? "")
+                                                           .FontSize(10)
+                                                           .Bold()              // Giá trị in đậm
+                                                           .AlignLeft();
                                                     });
                                                 }
 
@@ -198,27 +216,35 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                 row.RelativeItem(0.6f)
                                     .PaddingLeft(200)
                                     .Column(nationalColumn =>
-                                     {
+                                    {
                                         nationalColumn.Spacing(4);
 
-                                        void AddRow(string label, string value)
+                                        void AddRow(string label, string? value)
                                         {
                                             nationalColumn.Item().Row(row =>
                                             {
                                                 row.RelativeItem(5)
-                                                   .Text(label).FontSize(10).AlignLeft();
+                                                   .Text(label)
+                                                   .FontSize(10)
+                                                   .AlignLeft();   // Label thường
 
                                                 row.ConstantItem(5)
-                                                   .Text(":").FontSize(10).AlignCenter();
+                                                   .Text(":")
+                                                   .FontSize(10)
+                                                   .AlignCenter();
 
                                                 row.RelativeItem(10)
-                                                   .Text(value ?? "").FontSize(10).AlignLeft();
+                                                   .Text(value ?? "")
+                                                   .FontSize(10)
+                                                   .Bold()         // Value in đậm
+                                                   .AlignLeft();
                                             });
                                         }
 
                                         AddRow("Địa chỉ (bộ phận)", firstData?.DiaChi);
                                         AddRow("Địa điểm", firstData?.DiaDiem);
                                     });
+
 
 
 
