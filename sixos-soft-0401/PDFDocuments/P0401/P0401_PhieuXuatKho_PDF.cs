@@ -99,7 +99,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                         nationalColumn.Spacing(4);
                                         nationalColumn.Item()
                                               .AlignCenter()
-                                              .Text("Mấu số C31 - HD")
+                                              .Text("Mẫu số C31 - HD")
                                               .FontSize(10)
                                               .Bold();
                                               
