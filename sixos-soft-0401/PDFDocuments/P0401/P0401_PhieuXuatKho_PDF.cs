@@ -43,7 +43,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                 .PaddingHorizontal(2)
                 .Background(Colors.White)
                 .AlignMiddle()
-                .DefaultTextStyle(TextStyle.Default.FontSize(8)); // Reduced font size
+                .DefaultTextStyle(TextStyle.Default.FontSize(10)); // Reduced font size
         }
 
         public void Compose(IDocumentContainer container)
@@ -53,10 +53,10 @@ namespace sixos_soft_0401.PDFDocuments.P0401
   
                 page.DefaultTextStyle(x =>
                     x.FontFamily("Times New Roman")
-                     .FontSize(8)
+                     .FontSize(10)
                      .FontColor(Colors.Black)
                 );
-                page.Size(PageSizes.A4.Portrait());
+                page.Size(PageSizes.A4.Landscape());
                 page.Margin(20);
                 page.PageColor(Colors.White);
 
@@ -68,10 +68,10 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                         column.Item()
                             .Row(row =>
                             {
-                                row.RelativeColumn(0.6f)
+                                row.RelativeItem(0.6f)
                                     .Row(innerRow =>
                                     {
-                                        innerRow.ConstantColumn(70)
+                                        innerRow.ConstantItem(70)
                                             .Column(logoColumn =>
                                             {
                                                 logoColumn.Item()
@@ -80,33 +80,34 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                                     .Image("wwwroot/dist/img/logo.png", ImageScaling.FitArea);
                                             });
 
-                                        innerRow.RelativeColumn()
+                                        innerRow.RelativeItem()
                                             .PaddingLeft(2)
                                             .Column(infoColumn =>
                                             {
                                                 infoColumn.Spacing(4);
-                                                infoColumn.Item().Text(_thongTinDoanhNghiep.TenCSKCB ?? "").Bold().FontSize(8);
-                                                infoColumn.Item().Text($"Địa chỉ: {_thongTinDoanhNghiep.DiaChi ?? ""}").FontSize(8);
-                                                infoColumn.Item().Text($"Điện thoại: {_thongTinDoanhNghiep.DienThoai ?? ""}").FontSize(8);
-                                                infoColumn.Item().Text($"Email: {_thongTinDoanhNghiep.Email ?? ""}").FontSize(8);
+                                                infoColumn.Item().Text(_thongTinDoanhNghiep.TenCSKCB ?? "").Bold().FontSize(10);
+                                                infoColumn.Item().Text($"Địa chỉ: {_thongTinDoanhNghiep.DiaChi ?? ""}").FontSize(10);
+                                                infoColumn.Item().Text($"Điện thoại: {_thongTinDoanhNghiep.DienThoai ?? ""}").FontSize(10);
+                                                infoColumn.Item().Text($"Email: {_thongTinDoanhNghiep.Email ?? ""}").FontSize(10);
+                                                infoColumn.Item().Text("Mã QHNS:").FontSize(10);
                                             });
                                     });
 
-                                row.RelativeColumn(0.4f)
+                                row.RelativeItem(0.4f)
                                     .Column(nationalColumn =>
                                     {
                                         nationalColumn.Spacing(4);
                                         nationalColumn.Item()
                                               .AlignCenter()
-                                              .Text("Mãu sô C31 - HD")
-                                              .FontSize(8)
-                                              .Bold()
-                                              .FontColor(Colors.Blue.Darken2);
+                                              .Text("Mấu số C31 - HD")
+                                              .FontSize(10)
+                                              .Bold();
+                                              
 
                                         nationalColumn.Item()
                                             .AlignCenter()
                                             .Text("(Ban hành kèm theo thông tư 107/2017/TT-BTC 24/11/2017)")
-                                            .FontSize(8);
+                                            .FontSize(10);
                                       
 
                                         
@@ -120,8 +121,8 @@ namespace sixos_soft_0401.PDFDocuments.P0401
 
                         column.Item().Row(r =>
                         {
-                            r.ConstantColumn(0.25f);
-                            r.RelativeColumn().Column(column =>
+                            r.ConstantItem(0.25f);
+                            r.RelativeItem().Column(column =>
 
                             {
                                 column.Spacing(4);
@@ -136,7 +137,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                      .AlignCenter()
                                      .Text(text =>
                                      {
-                                         text.DefaultTextStyle(TextStyle.Default.FontSize(8));
+                                         text.DefaultTextStyle(TextStyle.Default.FontSize(10));
                                          text.Span($"Ngày chứng từ: {firstData?.NgayChungTu:dd-MM-yyyy}");
                                      });
 
@@ -144,12 +145,12 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                      .AlignCenter()
                                      .Text(text =>
                                      {
-                                         text.DefaultTextStyle(TextStyle.Default.FontSize(8));
+                                         text.DefaultTextStyle(TextStyle.Default.FontSize(10));
                                          text.Span($"Số chứng từ: {firstData?.SoChungTu}");
                                      });
                             });
 
-                            r.ConstantColumn(0.25f);
+                            r.ConstantItem(0.25f);
                         });
 
 
@@ -159,32 +160,66 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                         column.Item()
                             .Row(row =>
                             {
-                                row.RelativeColumn(0.6f)
+                                row.RelativeItem(0.4f)
                                     .PaddingBottom(10)
                                     .Row(innerRow =>
                                     {
 
-                                        innerRow.RelativeColumn()
-                                            .PaddingLeft(2)
+                                        innerRow.RelativeItem()
+                                            
                                             .Column(infoColumn =>
                                             {
                                                 infoColumn.Spacing(4);
-                                                infoColumn.Item().Text($"Họ tên người nhận hàng: {firstData?.NguoiNhanHang ?? ""}").FontSize(8);
-                                                infoColumn.Item().Text($"Lý do xuất: {firstData?.LyDoXuat ?? ""}").FontSize(8);
-                                                infoColumn.Item().Text($"Xuất tại kho: {firstData?.XuatTaiKho ?? ""}").FontSize(8);
-                                                infoColumn.Item().Text($"Đơn vị lĩnh: {firstData?.DonViLinh ?? ""}").FontSize(8);
-                                                infoColumn.Item().Text($"Nội dung: {firstData?.NoiDung ?? ""}").FontSize(8);
+
+                                                void AddRow(string label, string value)
+                                                {
+                                                    infoColumn.Item().Row(row =>
+                                                    {
+                                                        row.RelativeItem(5)
+                                                           .Text(label).FontSize(10).AlignLeft();
+
+                                                        row.ConstantItem(5)
+                                                           .Text(":").FontSize(10).AlignCenter();
+
+                                                        row.RelativeItem(10)
+                                                           .Text(value ?? "").FontSize(10).AlignLeft();
+                                                    });
+                                                }
+
+                                                AddRow("Họ tên người nhận hàng", firstData?.NguoiNhanHang);
+                                                AddRow("Lý do xuất", firstData?.LyDoXuat);
+                                                AddRow("Xuất tại kho", firstData?.XuatTaiKho);
+                                                AddRow("Đơn vị lĩnh", firstData?.DonViLinh);
+                                                AddRow("Nội dung", firstData?.NoiDung);
                                             });
+
                                     });
 
-                                row.RelativeColumn(0.4f)
-                                    .PaddingLeft(18)
+                                row.RelativeItem(0.6f)
+                                    .PaddingLeft(200)
                                     .Column(nationalColumn =>
-                                    {
+                                     {
                                         nationalColumn.Spacing(4);
-                                        nationalColumn.Item().Text($"Địa chỉ (bộ phận): {firstData?.DiaChi ?? ""}").FontSize(8);
-                                        nationalColumn.Item().Text($"Địa điểm: {firstData?.DiaDiem ?? ""}").FontSize(8);
+
+                                        void AddRow(string label, string value)
+                                        {
+                                            nationalColumn.Item().Row(row =>
+                                            {
+                                                row.RelativeItem(5)
+                                                   .Text(label).FontSize(10).AlignLeft();
+
+                                                row.ConstantItem(5)
+                                                   .Text(":").FontSize(10).AlignCenter();
+
+                                                row.RelativeItem(10)
+                                                   .Text(value ?? "").FontSize(10).AlignLeft();
+                                            });
+                                        }
+
+                                        AddRow("Địa chỉ (bộ phận)", firstData?.DiaChi);
+                                        AddRow("Địa điểm", firstData?.DiaDiem);
                                     });
+
 
 
                             });
@@ -234,7 +269,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                             .PaddingHorizontal(2)
                                             .AlignCenter()
                                             .AlignMiddle()
-                                            .Text(text).Bold().FontSize(8);
+                                            .Text(text).Bold().FontSize(10);
                                     }
 
                                     // ===== HÀNG 1 =====
@@ -297,10 +332,10 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                         .AlignRight().Text(string.Format("{0:N0}", item.SoLuongThucXuat ?? 0));
 
                                     table.Cell().ShowEntire().Element(c => CellStyle(c))
-                                        .AlignRight().Text(string.Format("{0:N2}", item.DonGia ?? 0));
+                                        .AlignRight().Text(string.Format(culture,"{0:N2}", item.DonGia ?? 0));
 
                                     table.Cell().ShowEntire().Element(c => CellStyle(c))
-                                        .AlignRight().Text(string.Format("{0:N2}", item.ThanhTien ?? 0));
+                                        .AlignRight().Text(string.Format(culture,"{0:N2}", item.ThanhTien ?? 0));
 
                                 }
                             });
@@ -365,10 +400,10 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                         .AlignRight().Text(string.Format("{0:N0}", lastRow.SoLuongThucXuat ?? 0));
 
                                     table.Cell().ShowEntire().Element(c => CellStyle(c))
-                                        .AlignRight().Text(string.Format("{0:N2}", lastRow.DonGia ?? 0));
+                                        .AlignRight().Text(string.Format(culture,"{0:N2}", lastRow.DonGia ?? 0));
 
                                     table.Cell().ShowEntire().Element(c => CellStyle(c))
-                                        .AlignRight().Text(string.Format("{0:N2}", lastRow.ThanhTien ?? 0));
+                                        .AlignRight().Text(string.Format(culture,"{0:N2}", lastRow.ThanhTien ?? 0));
 
                                     // =========================================================================
 
@@ -376,69 +411,72 @@ namespace sixos_soft_0401.PDFDocuments.P0401
 
                                     table.Cell().ColumnSpan(11).Element(c => CellStyle(c))
                                         .AlignCenter().Text("TỔNG CỘNG").Bold();
-                                    table.Cell().Element(c => CellStyle(c)).AlignRight().Text($"{tongThanhTien:N2}").Bold();
+                               
+
+                                    table.Cell().Element(c => CellStyle(c))
+                                        .AlignRight()
+                                        .Text(string.Format(culture, "{0:N2}", tongThanhTien))
+                                        .Bold();
+
                                 });
 
                                 block.Item().PaddingTop(1)
                                     .Text($"Cộng khoản: {--stt} khoản.")
-                                    .Italic().FontSize(8).Bold();
+                                    .Italic().FontSize(10).Bold();
+
+                                block.Item().AlignRight()
+                                    .PaddingTop(20)
+                                    .PaddingRight(25)
+                                    .Text($"Ngày {DateTime.Now:dd} tháng {DateTime.Now:MM} năm {DateTime.Now:yyyy}")
+                                    .FontSize(10).Italic();
 
                                 // ===== CHỮ KÝ =====
-                                block.Item().PaddingTop(20).EnsureSpace(80)
+                                // Hàng chữ ký
+                                block.Item().EnsureSpace(80)
                                     .Row(row =>
                                     {
-                                        row.RelativeColumn()
-                                            .AlignLeft()
-                                            .Column(col =>
-                                            {
-                                                col.Item().Text("Người lập").Bold().FontSize(8);
-                                                col.Item().PaddingTop(3)
-                                                    .Text("(Ký, ghi rõ họ tên)").Italic().FontSize(8);
-                                            });
-
-                                        row.RelativeColumn()
+                                        row.RelativeItem()
                                             .AlignCenter()
                                             .Column(col =>
                                             {
-                                                col.Item().Text("Người nhận hàng").Bold().FontSize(8);
-                                                col.Item().PaddingTop(3)
-                                                    .Text("(Ký, ghi rõ họ tên)").Italic().FontSize(8);
+                                                col.Item().Text("Người lập").Bold().FontSize(10);
+                                                col.Item().PaddingTop(3).Text("(Ký, ghi rõ họ tên)").Italic().FontSize(10);
                                             });
 
-                                        row.RelativeColumn()
+                                        row.RelativeItem()
+                                            .AlignCenter()
+                                            .Column(col =>
+                                            {
+                                                col.Item().Text("Người nhận hàng").Bold().FontSize(10);
+                                                col.Item().PaddingTop(3).Text("(Ký, ghi rõ họ tên)").Italic().FontSize(10);
+                                            });
+
+                                        row.RelativeItem()
                                             .AlignCenter()
                                             .Column(col =>
                                             {
                                                 col.Item().Text("Thủ kho").Bold().FontSize(10);
-                                                col.Item().PaddingTop(3)
-                                                    .Text("(Ký, ghi rõ họ tên)").Italic().FontSize(8);
+                                                col.Item().PaddingTop(3).Text("(Ký, ghi rõ họ tên)").Italic().FontSize(10);
                                             });
 
-                                        row.RelativeColumn()
+                                        row.RelativeItem()
                                             .AlignCenter()
                                             .Column(col =>
                                             {
-                                                col.Item().Text("Kế toán trưởng").Bold().FontSize(8);
-                                                col.Item().Text("(Hoặc phụ trách bộ phận)").Bold().FontSize(8);
-                                                col.Item().PaddingTop(3)
-                                                    .Text("(Ký, ghi rõ họ tên)").Italic().FontSize(8);
+                                                col.Item().Text("Kế toán trưởng").Bold().FontSize(10);
+                                                col.Item().Text("(Hoặc phụ trách bộ phận)").Bold().FontSize(10);
+                                                col.Item().PaddingTop(3).Text("(Ký, ghi rõ họ tên)").Italic().FontSize(10);
                                             });
 
-                                        row.RelativeColumn()
-                                            .AlignRight()
+                                        row.RelativeItem()
+                                            .AlignCenter()
                                             .Column(col =>
                                             {
-                                                col.Item().AlignCenter()
-                                                    .Text($"Ngày {DateTime.Now:dd} tháng {DateTime.Now:MM} năm {DateTime.Now:yyyy}")
-                                                    .FontSize(8).Italic();
-
-                                                col.Item().PaddingTop(5).AlignCenter()
-                                                    .Text("Thủ trưởng đơn vị").Bold().FontSize(8);
-
-                                                col.Item().PaddingTop(3).AlignCenter()
-                                                    .Text("(Ký, ghi rõ họ tên)").Italic().FontSize(8);
+                                                col.Item().Text("Thủ trưởng đơn vị").Bold().FontSize(10);
+                                                col.Item().Text("(Ký, ghi rõ họ tên)").Italic().FontSize(10);
                                             });
                                     });
+
 
                             });
                         });
@@ -451,7 +489,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                     {
 
 
-                        row.RelativeColumn(0.5f)
+                        row.RelativeItem(0.5f)
                         .PaddingTop(10)
                             .AlignLeft()
                             .Text(x =>
@@ -460,7 +498,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                             });
 
 
-                        row.RelativeColumn(0.5f) // Chiếm 50% chiều rộng footer
+                        row.RelativeItem(0.5f) // Chiếm 50% chiều rộng footer
                             .PaddingTop(10)
                             .AlignRight()
                             .Text(x =>
