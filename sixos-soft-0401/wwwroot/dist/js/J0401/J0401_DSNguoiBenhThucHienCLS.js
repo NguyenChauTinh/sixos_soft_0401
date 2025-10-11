@@ -99,6 +99,9 @@ function updateTable(response) {
     }
 
     let data = [];
+    if (Array.isArray(response?.data)) {
+        data = response.data;
+    }
     if (Array.isArray(response)) {
         data = response;
     } else if (response && response.data) {
@@ -146,7 +149,9 @@ function updateTable(response) {
 
             tbody.append(row);
         });
+        //showToast("Lọc thành công", 200);
     } else {
+        //showToast("Lọc thành công", 200);
         tbody.append('<tr><td colspan="15" class="text-center">Không có dữ liệu</td></tr>');
     }
 }

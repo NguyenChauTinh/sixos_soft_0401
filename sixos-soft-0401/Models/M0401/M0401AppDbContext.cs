@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using sixos_soft_0401.Models.M0401.M0401_BenhNhanXemLSKCB;
 using sixos_soft_0401.Models.M0401.M0401_DSNguoiBenhThucHienCLS;
 using sixos_soft_0401.Models.M0401.M0401_PhieuXuatKho;
 using sixos_soft_0401.Models.M0401.M0401_SoTuChoiMau;
@@ -14,6 +15,9 @@ namespace sixos_soft_0401.Models.M0401
         public DbSet<M0401_TheKhoDuoc_Model> T0401_TheKhoDuoc { get; set; }
         public DbSet<M0401_PhieuXuatKho_Model> T0401_PhieuXuatKho { get; set; }
         public DbSet<M0401_ThongTinDoanhNghiep> ThongTinDoanhNghiep { get; set; }
+        public DbSet<HH_DM_KhoHang> HH_DM_KhoHang { get; set; }
+        public DbSet<BenhNhanXemLSKCB> BenhNhanXemLSKCBs  { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +26,9 @@ namespace sixos_soft_0401.Models.M0401
             modelBuilder.Entity<M0401_SoTuChoiMau_Model>().HasNoKey();
             modelBuilder.Entity<M0401_TheKhoDuoc_Model>().HasNoKey();
             modelBuilder.Entity<M0401_PhieuXuatKho_Model>().HasNoKey();
+            modelBuilder.Entity<HH_DM_KhoHang>().HasNoKey();
+            modelBuilder.Entity<BenhNhanXemLSKCB>().HasNoKey();
+
 
         }
         public bool TestConnection()

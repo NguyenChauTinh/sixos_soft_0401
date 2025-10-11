@@ -27,12 +27,16 @@ wwwroot\dist\css\tabler.css
 wwwroot\dist\css\tabler.min.css
 wwwroot\dist\css\tabler.rtl.css
 wwwroot\dist\css\tabler.rtl.min.css
+wwwroot\dist\css\toastr.min.css
 wwwroot\dist\css\treeview.css
 wwwroot\dist\data\json\CLS_DmLoaiCLS.json
+wwwroot\dist\data\json\HH_DmKhoHang.json
 wwwroot\dist\img\logo.png
-wwwroot\dist\js\J0401\J0401_PhieuXuatKho.js
+wwwroot\dist\js\BienChung.js
+wwwroot\dist\js\Common.js
 wwwroot\dist\js\J0401\J0401QL_NoiDungHen.js
 wwwroot\dist\js\J0401\J0401_DSNguoiBenhThucHienCLS.js
+wwwroot\dist\js\J0401\J0401_PhieuXuatKho.js
 wwwroot\dist\js\J0401\J0401_SoTuChoiMau.js
 wwwroot\dist\js\J0401\J0401_TheKhoDuoc.js
 wwwroot\dist\lib\apexcharts\dist\apexcharts.amd.js
@@ -1105,6 +1109,7 @@ wwwroot\dist\lib\tinymce\themes\silver\theme.min.js
 wwwroot\dist\lib\tinymce\tinymce.d.ts
 wwwroot\dist\lib\tinymce\tinymce.js
 wwwroot\dist\lib\tinymce\tinymce.min.js
+wwwroot\dist\lib\toast\toastr.min.js
 wwwroot\dist\lib\tom-select\dist\js\plugins\caret_position.js
 wwwroot\dist\lib\tom-select\dist\js\plugins\caret_position.js.map
 wwwroot\dist\lib\tom-select\dist\js\plugins\change_listener.js
@@ -1204,4 +1209,4 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\dist\js\BienChung.js
+wwwroot\dist\js\J0401\J0401_BenhNhanXemLSKCB.js

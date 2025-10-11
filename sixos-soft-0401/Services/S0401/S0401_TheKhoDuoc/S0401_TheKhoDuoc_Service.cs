@@ -63,7 +63,7 @@ namespace sixos_soft_0401.Services.S0401.S0401_TheKhoDuoc
                 }
 
                 var allData = await _context.T0401_TheKhoDuoc
-                    .FromSqlRaw("EXEC S0401_TheKHoDuoc @TuNgay, @DenNgay, @IdChiNhanh, @IdKho",
+                    .FromSqlRaw("EXEC S0302_TheKHoDuoc @TuNgay, @DenNgay, @IdChiNhanh, @IdKho",
                         new SqlParameter("@TuNgay", tuNgay),
                         new SqlParameter("@DenNgay", denNgay),
                         new SqlParameter("@IdChiNhanh", IDChiNhanh),

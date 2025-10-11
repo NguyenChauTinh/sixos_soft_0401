@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("sixos_soft_0401")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e80e2a7ea4f2d760949005333ac1f8080680062")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87a7e897124c1782d725b0e5e56b36c67b7a5670")]
 [assembly: System.Reflection.AssemblyProductAttribute("sixos_soft_0401")]
 [assembly: System.Reflection.AssemblyTitleAttribute("sixos_soft_0401")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -5,6 +5,102 @@
 
 @using sixos_soft_0401.Models.M0401.M0401_SoTuChoiMau;
 @using sixos_soft_0401.Models.M0401;
+
+<style>
+	.table-wrapper-scroll th:nth-child(1),
+	.table-wrapper-scroll td:nth-child(1),
+	.table-wrapper-scroll th:nth-child(2),
+	.table-wrapper-scroll td:nth-child(2),
+	.table-wrapper-scroll th:nth-child(3),
+	.table-wrapper-scroll td:nth-child(3) {
+		position: sticky;
+		background: #fff;
+		z-index: 300;
+	}
+
+		.table-wrapper-scroll th:nth-child(1)::before,
+		.table-wrapper-scroll td:nth-child(1)::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: -1px;
+			width: 1px;
+			height: 100%;
+			background: #ccc;
+			z-index: 30;
+		}
+
+		/* thêm border phải luôn hiển thị */
+		.table-wrapper-scroll th:nth-child(1)::after,
+		.table-wrapper-scroll td:nth-child(1)::after,
+		.table-wrapper-scroll th:nth-child(2)::after,
+		.table-wrapper-scroll td:nth-child(2)::after,
+		.table-wrapper-scroll th:nth-child(3)::after,
+		.table-wrapper-scroll td:nth-child(3)::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			right: -1px;
+			width: 1px;
+			height: 100%;
+			background: #ccc;
+			z-index: 30;
+		}
+
+
+	.table-wrapper-scroll thead th:nth-child(1) {
+		position: sticky;
+		top: 0;
+		left: 0;
+		z-index: 20;
+		background-color: #f8f9fa;
+		min-width: 65px;
+	}
+
+	.table-wrapper-scroll thead th:nth-child(2) {
+		position: sticky;
+		top: 0;
+		left: 65px; /* bằng đúng width cột 1 */
+		z-index: 20;
+		background-color: #f8f9fa;
+		min-width: 100px;
+	}
+
+	.table-wrapper-scroll thead th:nth-child(3) {
+		position: sticky;
+		top: 0;
+		left: 165px; /* bằng đúng width cột 1 */
+		z-index: 20;
+		background-color: #f8f9fa;
+		min-width: 200px;
+	}
+
+	/* Body - Cố định 2 cột (trừ dòng tổng) */
+	.table-wrapper-scroll tbody tr td:nth-child(1) {
+		position: sticky;
+		left: 0;
+		z-index: 20;
+		background-color: white;
+		min-width: 65px;
+	}
+
+	.table-wrapper-scroll tbody tr td:nth-child(2) {
+		position: sticky;
+		left: 65px; /* bằng đúng width cột 1 */
+		z-index: 20;
+		background-color: white;
+		min-width: 100px;
+	}
+
+	.table-wrapper-scroll tbody tr td:nth-child(3) {
+		position: sticky;
+		left: 165px; /* bằng đúng width cột 1 */
+		z-index: 20;
+		background-color: white;
+		min-width: 200px;
+	}
+</style>
+
 <div class="card p-1 d-flex " style="height: 86vh;position: relative;">
 	<div class="row g-0 h-100">
 		<div class="col-3 p-2">
@@ -86,7 +182,7 @@
 
 
 
-			<div class="table-responsive" style="max-height: 78vh;min-height: 78vh; overflow-y:auto;">
+			<div class="table-responsive table-wrapper-scroll" style="max-height: 78vh;min-height: 78vh; overflow-y:auto;">
 				<table class="table table-bordered table-hover">
 					<thead class="table-light">
 						<tr>

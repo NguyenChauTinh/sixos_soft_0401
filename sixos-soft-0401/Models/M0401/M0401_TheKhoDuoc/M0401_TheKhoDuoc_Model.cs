@@ -5,9 +5,6 @@ namespace sixos_soft_0401.Models.M0401.M0401_TheKhoDuoc
 {
     public class M0401_TheKhoDuoc_Model
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ID { get; set; }  // bigint, tự động tăng
         public long? IdChiNhanh { get; set; }
         public long? IdKho { get; set; }
         public string? TenKho { get; set; } = string.Empty; //
@@ -21,12 +18,12 @@ namespace sixos_soft_0401.Models.M0401.M0401_TheKhoDuoc
         public string? DienGiai { get; set; } = string.Empty; //
         public string? DVT { get; set; } = string.Empty; //
         public string? DVTQuiCach { get; set; } = string.Empty; //
-        public int? NhapGoc { get; set; }
-        public int? Nhap { get; set; }
-        public int? XuatGoc { get; set; }
-        public int? Xuat { get; set; }
-        public int? TonGoc { get; set; }
-        public int? Ton { get; set; }
+        public float? NhapGoc { get; set; }
+        public float? Nhap { get; set; }
+        public float? XuatGoc { get; set; }
+        public float? Xuat { get; set; }
+        public float? TonGoc { get; set; }
+        public float? Ton { get; set; }
 
     }
 }

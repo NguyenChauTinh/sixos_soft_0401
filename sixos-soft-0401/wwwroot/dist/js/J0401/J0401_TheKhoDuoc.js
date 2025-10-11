@@ -210,6 +210,13 @@ function filterData(isPagination = false) {
     showSpinner();
     $('.table').css('opacity', '0.5');
 
+    let inputval = $(".cbKhoHang")[0].tomselect.getValue()
+    let ts = $(".cbKhoHang")[0].tomselect;
+    let id = ts.getValue();
+    let ten = ts.options[id]?.ten;   
+    console.log("ID:", id, "Tên:", ten);
+
+
     $.ajax({
         url: '/the_kho_duoc/filter',
         type: 'POST',
@@ -217,7 +224,7 @@ function filterData(isPagination = false) {
             tuNgay: tuNgay,
             denNgay: denNgay,
             IdChiNhanh: _idcn,
-            IdKho: _idKho,
+            IdKho: inputval,
             page: currentPage,
             pageSize: pageSize
         },
@@ -878,3 +885,217 @@ function showToast(message, type = "success") {
     const toast = new bootstrap.Toast(toastEl);
     toast.show();
 }
+
+//============================ dropdown kho hang ==========================================
+const $inputKho = $("#khoInput");
+const $dropdownKho = $("#khoDropdown");
+const $hiddenKhoId = $("#khoIdHidden");
+let khoIndex = -1;
+
+// Filter danh sách kho
+function filterKho(keyword) {
+    const lowerKeyword = keyword.toLowerCase();
+    const $items = $dropdownKho.find(".kho-item");
+
+    // Sắp xếp
+    const itemsArray = $items.get().sort((a, b) => {
+        const aName = $(a).data("name");
+        const bName = $(b).data("name");
+        return aName.localeCompare(bName);
+    });
+
+    $dropdownKho.empty().append(itemsArray);
+
+    // Lọc hiển thị
+    $items.each(function () {
+        const name = $(this).data("name");
+        const isVisible = !lowerKeyword || name.includes(lowerKeyword);
+        $(this).toggle(isVisible);
+    });
+}
+
+// Focus input -> show tất cả
+$inputKho.on("focus", function () {
+    $dropdownKho.show();
+    filterKho("");
+});
+
+// Gõ vào input
+$inputKho.on("input", function () {
+    filterKho($(this).val().trim());
+});
+
+// Click chọn item
+$dropdownKho.on("click", ".kho-item", function () {
+    console.log("Clicked item:", $(this).text().trim(), "ID:", $(this).data("id"));
+    $inputKho.val($(this).text().trim());
+    $hiddenKhoId.val($(this).data("id"));
+    $dropdownKho.hide();
+});
+
+// Click ngoài thì ẩn
+$(document).on("click", function (e) {
+    if (!$(e.target).closest("#khoInput, #khoDropdown").length) {
+        $dropdownKho.hide();
+    }
+});
+
+// Điều hướng bằng bàn phím
+$inputKho.on("keydown", function (e) {
+    if (!$dropdownKho.is(":visible")) return;
+    const items = $dropdownKho.find(".kho-item:visible");
+    if (items.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+        e.preventDefault();
+        khoIndex = (khoIndex + 1) % items.length;
+        items.removeClass("active").eq(khoIndex).addClass("active");
+        items.eq(khoIndex)[0].scrollIntoView({ block: "nearest" });
+    } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        khoIndex = (khoIndex - 1 + items.length) % items.length;
+        items.removeClass("active").eq(khoIndex).addClass("active");
+        items.eq(khoIndex)[0].scrollIntoView({ block: "nearest" });
+    } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (khoIndex >= 0 && khoIndex < items.length) {
+            items.eq(khoIndex).click();
+            khoIndex = -1;
+        }
+    }
+});
+
+$inputKho.on("input click", function () {
+    khoIndex = -1;
+});
+
+// Sort dropdown theo ABC khi load
+$(document).ready(function () {
+    filterKho("");
+});
+
+// ===========================================================
+
+data = [
+    {
+        className: ".cbKhoHang",
+        action: "HH_DmKhoHang",
+        placeholder: "-- Kho hàng --",
+        callback: function () { },
+    }
+]
+configCb(data, function() {
+    console.log("configCb done");
+});
+
+function configCb(datas, callback) {
+    var requests = []; // Mảng để chứa tất cả các request Ajax
+
+    datas.forEach((data) => {
+        // Tạo một request AJAX lấy file JSON dựa theo 'action' được truyền
+        var request = $.ajax({
+            dataType: "json",
+            url: "/dist/data/json/" + data.action + ".json",
+        }).done(function (response) {
+            // Nếu có điều kiện lọc (dieuKien), áp dụng vào dữ liệu
+            if (data.dieuKien) {
+                response = data.dieuKien(response);
+            }
+
+            // Áp dụng cho tất cả phần tử có class tương ứng
+            $(data.className).each(function () {
+                var arr = [];
+
+                // Nếu thẻ select có thuộc tính required thì clone lại dữ liệu
+                if ($(this).prop('required')) {
+                    arr = response.map(obj => ({ ...obj })); // clone object
+                } else {
+                    arr = response; // dùng dữ liệu gốc
+                }
+
+                var el = this;
+
+                // Cấu hình cho TomSelect
+                let setting = {
+                    selectOnTab: true,                     // Cho phép chọn bằng phím Tab
+                    loadingClass: "Đang tìm kiếm...",     // Text hiển thị khi đang loading
+                    valueField: "id",                     // Giá trị sẽ được submit
+                    labelField: "ten",                    // Text hiển thị
+                    placeholder:                          // Placeholder mặc định hoặc tùy chỉnh
+                        data.placeholder == ""
+                            ? $(el).attr("placeholder")
+                            : data.placeholder,
+                    options: arr,                         // Dữ liệu hiển thị trong dropdown
+                    openOnFocus: false,                   // Không tự mở dropdown khi focus
+                    searchField: ["ten", "ma", "viettat"], // Các trường cho tìm kiếm
+
+                    // Tùy chỉnh giao diện option hiển thị
+                    render: {
+                        option: function (item, escape) {
+                            return (
+                                '<div class="d-flex"><span style="width: 70%;">' +
+                                escape(item.ten) +
+                                '</span><span style="width: 30%; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;text-align: end;" class="ms-auto text-muted">[' +
+                                escape(item.viettat) +
+                                "]</span></div>"
+                            );
+                        },
+                        no_results: function (data, escape) {
+                            return '<div class="no-results">Không tìm thấy dữ liệu </div>';
+                        },
+                    },
+
+                    loadThrottle: 400, // Giới hạn tốc độ gọi lại khi nhập (ms)
+
+                    onFocus: function () {
+                        // Nếu có thuộc tính 'dropdown-top', hiển thị dropdown ở phía trên
+                        if ($(el).attr("dropdown-top")) {
+                            this.popper = Popper.createPopper(this.control, this.dropdown, {
+                                placement: "top-start",
+                            });
+                        }
+                    }
+                };
+
+                // Nếu người dùng muốn thêm tùy chỉnh khác vào setting
+                if (data.moreSetting) {
+                    data.moreSetting(setting);
+                }
+
+                // Chỉ khởi tạo TomSelect nếu chưa tồn tại trên phần tử
+                if (!el.tomselect) {
+                    var mySelect = new TomSelect(el, setting);
+                    mySelect.positionDropdown(); // Cập nhật vị trí dropdown sau khi render
+
+                    // Mở dropdown khi click vào vùng control
+                    $(el).next()
+                        .children("div.ts-control")
+                        .on("click", function () {
+                            mySelect.open();
+                        });
+                }
+
+                // Gọi hàm callback nếu có
+                if (data.callback) {
+                    data.callback();
+                }
+            });
+        });
+
+        // Thêm mỗi request vào danh sách để xử lý đồng thời
+        requests.push(request);
+    });
+
+    // Khi tất cả các request đều hoàn tất
+    if (callback) {
+        $.when
+            .apply($, requests)
+            .done(function () {
+                callback(); // Gọi callback tổng sau khi tất cả xong
+            })
+            .fail(function () {
+                console.error("Lỗi JSON"); // Log nếu có lỗi
+            });
+    }
+}
+

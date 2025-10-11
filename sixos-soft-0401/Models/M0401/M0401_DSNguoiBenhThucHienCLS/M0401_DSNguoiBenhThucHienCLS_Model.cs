@@ -14,7 +14,7 @@ namespace sixos_soft_0401.Models.M0401.M0401_DSNguoiBenhThucHienCLS
         public string? MaSoDot { get; set; }
         public string? ICD { get; set; } = string.Empty; // 
         public string? HoTen { get; set; } = string.Empty; // 
-        public string? NamSinh { get; set; } = string.Empty; // 
+        public int? NamSinh { get; set; } 
         public string? GioiTinh { get; set; } = string.Empty; // 
         public string? SoTheBHYT { get; set; } = string.Empty; // 
         public string? KCB_BD { get; set; } = string.Empty; // 

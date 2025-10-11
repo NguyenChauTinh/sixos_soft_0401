@@ -106,7 +106,7 @@ function updateTable(response) {
         data = Array.isArray(response.data) ? response.data : [response.data];
     }
 
-    //console.log('Data to display:', data);
+    console.log('Data to display:', data);
     
     if (data.length > 0) {
         data.forEach((item, index) => {
@@ -131,6 +131,8 @@ function updateTable(response) {
     } else {
         tbody.append('<tr><td colspan="15" class="text-center">Không có dữ liệu</td></tr>');
     }
+
+    
 }
 
 // ==================== RENDER PHÂN TRANG ====================
@@ -212,9 +214,13 @@ function filterData(isPagination = false) {
                 totalRecords = response.totalRecords || totalRecords;
                 totalPages = response.totalPages || totalPages;
                 window.doanhNghiep = response.doanhNghiep || null;
+
+                showToast("Lọc thành công!", "success");
                 
             } else {
                 showToast("Có lỗi xảy ra khi lọc!", "error");
+                const tbody = $('#data-list');
+                tbody.append('<tr><td colspan="15" class="text-center">Không có dữ liệu</td></tr>');
                 
             }
         },

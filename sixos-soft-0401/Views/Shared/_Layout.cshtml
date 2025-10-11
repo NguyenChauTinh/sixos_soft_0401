@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var jsonUrl = "https://testungbuou.sixossoft.com";
+}
+
+<script>
+
+    var jsonUrl = "@jsonUrl";
+
+    // console.log("Json URL:", jsonUrl);
+</script>
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,9 +19,32 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/sixos_soft_0401.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/css/toastr.min.css" />
+
+    @* <link href="/dist/lib/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" /> 
+    <link href="/dist/css/tabler.min.css?1684106062" rel="stylesheet" /> 
+    <link href="/dist/css/tabler-payments.min.css?1684106062" rel="stylesheet" />
+    <link href="/dist/css/tabler-vendors.min.css?1684106062" rel="stylesheet" /> 
+    <link href="/dist/css/demo.min.css?1684106062" rel="stylesheet" />  *@
+    <link href="/dist/css/Custom.css" rel="stylesheet" />
+
+    <link href="https://styles.sixossoft.com/dist/libs/datetimepicker/bootstrap-datetimepicker.min.css"
+          rel="stylesheet" />
+
+    <link href="https://styles.sixossoft.com/dist/css/tabler-flags.css" rel="stylesheet" />
+    <link href="https://styles.sixossoft.com/dist/css/tabler-socials.css" rel="stylesheet" />
+    <link href="https://styles.sixossoft.com/dist/css/tabler-payments.css" rel="stylesheet" />
+    <link href="https://styles.sixossoft.com/dist/css/tabler-vendors.css" rel="stylesheet" />
+    <link href="https://styles.sixossoft.com/dist/css/tabler-marketing.css" rel="stylesheet" />
+    <link href="https://styles.sixossoft.com/dist/css/tabler-themes.css" rel="stylesheet" />
+
+    <link href="https://styles.sixossoft.com/dist/css/demo.css" rel="stylesheet" />
+    <link href="https://styles.sixossoft.com/dist/css/custom.css" rel="stylesheet" />
+    
 </head>
 <body>
     <header>
+        <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3"></div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">sixos_soft_0401</a>
@@ -37,6 +72,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="C0401_PhieuXuatKho" asp-action="V0401_PhieuXuatKho">Phiếu xuất kho</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="C0401_BenhNhanXemLSKCB" asp-action="V0401_BenhNhanXemLSKCB">Bệnh nhân</a>
+                        </li>
+                     
 
                     </ul>
                 </div>
@@ -57,7 +96,17 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/dist/lib/Jquery/jquery.inputmask.js" defer></script>
+    <script src="/dist/lib/popper.js/umd/popper.min.js" defer></script>
+    <script src="/dist/lib/datetimepicker/moment.min.js" defer=""></script>
+    <script src="/dist/lib/datetimepicker/moment-with-locales.min.js" defer=""></script>
+    <script src="/dist/lib/datetimepicker/bootstrap-datetimepicker.min.js" defer></script>
+    <script src="/dist/lib/datetimepicker/popper.min.js" defer=""></script>
+    <script src="/dist/lib/tom-select/dist/js/tom-select.base.min.js" defer></script>
+
     <script src="/dist/js/BienChung.js" asp-append-version="true" defer></script>
+     <script src="/dist/js/Common.js" asp-append-version="true" defer></script> 
+    @* <script src="/dist/lib/toast/toastr.min.js" asp-append-version="true" defer></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

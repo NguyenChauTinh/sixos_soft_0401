@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using sixos_soft_0401.Controllers.C0401.C0401_TheKhoDuoc;
+using sixos_soft_0401.Models.M0401;
 using sixos_soft_0401.Models.M0401.M0401_TheKhoDuoc;
 using sixos_soft_0401.Services.S0401.I0401.I0401_TheKhoDuoc;
 
@@ -14,15 +16,17 @@ namespace sixos_soft_0401.Controllers.C0401.C0401_TheKhoDuoc
 
         private readonly I0401_TheKhoDuoc _service;
         private readonly ILogger<C0401_TheKhoDuocController> _logger;
+        private readonly M0401AppDbContext _dbService;
 
-        public C0401_TheKhoDuocController(I0401_TheKhoDuoc service, ILogger<C0401_TheKhoDuocController> logger /*, IMemoryCachingServices memoryCache*/)
+        public C0401_TheKhoDuocController(M0401AppDbContext dbService ,I0401_TheKhoDuoc service, ILogger<C0401_TheKhoDuocController> logger /*, IMemoryCachingServices memoryCache*/)
         {
             _service = service;
             _logger = logger;
+            _dbService = dbService;
             //_memoryCache = memoryCache;
         }
 
-        public IActionResult V0401_TheKhoDuoc()
+        public async Task<IActionResult> V0401_TheKhoDuoc()
         {
             //var quyenVaiTro = await _memoryCache.getQuyenVaiTro(_maChucNang);
             //if (quyenVaiTro == null)
@@ -45,6 +49,16 @@ namespace sixos_soft_0401.Controllers.C0401.C0401_TheKhoDuoc
                 CaNhan = true,
                 Xem = true
             };
+
+            var khoList = await _dbService.HH_DM_KhoHang
+                .Where(k => k.Active)              // hoặc remove filter nếu cần tất cả
+                .OrderBy(k => k.TenKhoHang)
+                .ToListAsync();
+
+            // Gán vào ViewBag mà view hiện tại đang dùng (view bạn post đang đọc ViewBag.DanTocList)
+            ViewBag.KhoHangList = khoList;
+
+
             return View("~/Views/V0401/V0401_TheKhoDuoc/V0401_TheKhoDuoc.cshtml");
         }
 
