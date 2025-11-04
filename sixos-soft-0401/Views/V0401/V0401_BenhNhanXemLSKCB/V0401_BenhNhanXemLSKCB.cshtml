@@ -15,7 +15,7 @@
 
     .scrollable-detail {
         
-        max-height: 40vh; 
+        max-height: 24vh; 
         overflow-y: auto;
         border: 1px solid #dee2e6; 
         border-radius: 5px;
@@ -31,7 +31,7 @@
 </style>
 
 <div>
-    <div class="container mt-5">
+    <div class="container ">
         <h2>Tra Cứu Lịch Sử Khám Chữa Bệnh (LSKCB)</h2>
 
         <div class="row g-3 align-items-end">
@@ -40,7 +40,7 @@
                 <input type="number" class="form-control" id="idBenhNhanInput" placeholder="Nhập ID" value="1">
             </div>
             <div class="col-auto">
-                <button type="button" class="btn btn-primary" id="btnXemLSKCB">
+                <button type="button" class="btn btn-primary" id="btnXemLSKCB" data-bs-toggle="modal" data-bs-target="#LSKCBModal">
                     <i class="fas fa-search"></i> Xem Lịch Sử Khám Chữa Bệnh
                 </button>
             </div>
@@ -53,6 +53,7 @@
         </div>
     </div>
 
+    <!-- Modal -->
     <div class="modal fade" id="LSKCBModal" tabindex="-1" aria-labelledby="LSKCBModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -60,11 +61,13 @@
                     <h5 class="modal-title" id="LSKCBModalLabel">Lịch sử khám chữa bệnh</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body modal-body-scroll">
+                <div class="modal-body-scroll">
                     <div id="lskcbContent">
-                        <p class="text-center text-muted">Vui lòng nhập ID bệnh nhân và nhấn nút để xem lịch sử.</p>
+                       
                     </div>
                 </div>
+
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 </div>

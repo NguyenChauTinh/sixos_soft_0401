@@ -395,6 +395,7 @@ $('#btnExportExcel').off('click').on('click', function (e) {
 });
 
 // ==================== XUẤT PDF ====================
+// ==================== XUẤT PDF ====================
 function doExportPdf(finalData, btnElem) {
     const requestData = {
         data: finalData,
@@ -402,6 +403,15 @@ function doExportPdf(finalData, btnElem) {
         toDate: $('#ngayDenNgay').val(),
         doanhNghiep: window.doanhNghiep || null
     };
+
+    // Lấy các phần tử modal và iframe
+    const pdfModalElement = document.getElementById('pdfViewerModal');
+    const pdfModal = bootstrap.Modal.getOrCreateInstance(pdfModalElement); // Lấy hoặc tạo đối tượng Modal
+    const pdfFrame = document.getElementById('pdfViewerFrame');
+
+    // Reset iframe về trang trống trước khi gọi fetch
+    // phòng trường hợp file cũ vẫn còn hiển thị
+    pdfFrame.src = 'about:blank';
 
     fetch("/so_tu_choi_mau/export/pdf", {
         method: "POST",
@@ -413,15 +423,29 @@ function doExportPdf(finalData, btnElem) {
             return res.blob();
         })
         .then(blob => {
+            // === THAY ĐỔI CHÍNH Ở ĐÂY ===
+
+            // 1. Tạo URL cho blob
             const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = `SoTuChoiMau_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.pdf`;
-            a.click();
-            window.URL.revokeObjectURL(url);
-            showToast('Xuất file pdf thành công', "success");
+
+            // 2. Gán URL này cho thuộc tính 'src' của iframe
+            pdfFrame.src = url;
+
+            // 3. Hiển thị modal
+            pdfModal.show();
+
+            // 4. (Rất quan trọng) Thu hồi URL để giải phóng bộ nhớ
+            //    khi người dùng đóng modal.
+            pdfModalElement.addEventListener('hidden.bs.modal', () => {
+                window.URL.revokeObjectURL(url);
+                pdfFrame.src = 'about:blank'; // Reset lại iframe
+            }, { once: true }); // {once: true} để sự kiện chỉ chạy 1 lần
+
+            showToast('Đã tải file PDF để xem trước', "success");
+            // === KẾT THÚC THAY ĐỔI ===
         })
         .catch(error => {
+            console.error("Lỗi khi xuất PDF: ", error);
             showToast("Lỗi trong quá trình xuất file!", "error");
         })
         .finally(() => {
@@ -430,6 +454,7 @@ function doExportPdf(finalData, btnElem) {
         });
 }
 
+// Code xử lý click của bạn giữ nguyên, không cần đổi
 $('#btnExportPDF').off('click').on('click', function (e) {
     e.preventDefault();
     if (!validateExportDatesAndData()) return;

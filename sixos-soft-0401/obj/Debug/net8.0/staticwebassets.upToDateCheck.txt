@@ -27,7 +27,6 @@ wwwroot\dist\css\tabler.css
 wwwroot\dist\css\tabler.min.css
 wwwroot\dist\css\tabler.rtl.css
 wwwroot\dist\css\tabler.rtl.min.css
-wwwroot\dist\css\toastr.min.css
 wwwroot\dist\css\treeview.css
 wwwroot\dist\data\json\CLS_DmLoaiCLS.json
 wwwroot\dist\data\json\HH_DmKhoHang.json
@@ -35,6 +34,7 @@ wwwroot\dist\img\logo.png
 wwwroot\dist\js\BienChung.js
 wwwroot\dist\js\Common.js
 wwwroot\dist\js\J0401\J0401QL_NoiDungHen.js
+wwwroot\dist\js\J0401\J0401_BenhNhanXemLSKCB.js
 wwwroot\dist\js\J0401\J0401_DSNguoiBenhThucHienCLS.js
 wwwroot\dist\js\J0401\J0401_PhieuXuatKho.js
 wwwroot\dist\js\J0401\J0401_SoTuChoiMau.js
@@ -297,6 +297,11 @@ wwwroot\dist\lib\countup.js\dist\countUp.js
 wwwroot\dist\lib\countup.js\dist\countUp.min.js
 wwwroot\dist\lib\countup.js\dist\countUp.umd.js
 wwwroot\dist\lib\countup.js\dist\requestAnimationFrame.polyfill.js
+wwwroot\dist\lib\datetimepicker\bootstrap-datetimepicker.min.css
+wwwroot\dist\lib\datetimepicker\bootstrap-datetimepicker.min.js
+wwwroot\dist\lib\datetimepicker\moment-with-locales.min.js
+wwwroot\dist\lib\datetimepicker\moment.min.js
+wwwroot\dist\lib\datetimepicker\popper.min.js
 wwwroot\dist\lib\devtools-detector\devtools-detector.min.js
 wwwroot\dist\lib\dropzone\dist\basic.css
 wwwroot\dist\lib\dropzone\dist\basic.css.map
@@ -940,6 +945,7 @@ wwwroot\dist\lib\plyr\dist\plyr.polyfilled.min.mjs
 wwwroot\dist\lib\plyr\dist\plyr.polyfilled.min.mjs.map
 wwwroot\dist\lib\plyr\dist\plyr.polyfilled.mjs
 wwwroot\dist\lib\plyr\dist\plyr.svg
+wwwroot\dist\lib\popper.js\umd\popper.min.js
 wwwroot\dist\lib\star-rating.js\dist\star-rating.cjs.js
 wwwroot\dist\lib\star-rating.js\dist\star-rating.css
 wwwroot\dist\lib\star-rating.js\dist\star-rating.esm.js
@@ -1150,6 +1156,14 @@ wwwroot\dist\lib\tom-select\dist\js\tom-select.popular.js
 wwwroot\dist\lib\tom-select\dist\js\tom-select.popular.js.map
 wwwroot\dist\lib\tom-select\dist\js\tom-select.popular.min.js
 wwwroot\dist\lib\tom-select\dist\js\tom-select.popular.min.js.map
+wwwroot\dist\lib\webfont\fonts\tabler-icons.eot
+wwwroot\dist\lib\webfont\fonts\tabler-icons.ttf
+wwwroot\dist\lib\webfont\fonts\tabler-icons.woff
+wwwroot\dist\lib\webfont\fonts\tabler-icons.woff2
+wwwroot\dist\lib\webfont\tabler-icons.css
+wwwroot\dist\lib\webfont\tabler-icons.html
+wwwroot\dist\lib\webfont\tabler-icons.min.css
+wwwroot\dist\lib\webfont\tabler-icons.scss
 wwwroot\favicon.ico
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -1209,4 +1223,3 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\dist\js\J0401\J0401_BenhNhanXemLSKCB.js

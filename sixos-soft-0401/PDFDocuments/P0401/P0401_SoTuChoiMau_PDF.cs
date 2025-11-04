@@ -107,7 +107,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                         nationalColumn.Spacing(2);
                                         nationalColumn.Item()
                                               .AlignRight()
-                                              .Text("DANH SÁCH NGƯỜI BỆNH THỰC HIỆN CHUẨN LÂM SÀNG")
+                                              .Text("BẢNG TỔNG KẾT XÉT NGHIỆM CỦA BỆNH NHÂN ")
                                               .FontFamily("Times New Roman")
                                               .FontSize(10)
                                               .Bold()

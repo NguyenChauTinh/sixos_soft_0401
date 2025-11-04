@@ -2094,14 +2094,31 @@ $(document).on("keydown", ".inputGoiY", function (event) {
 });
 
 // tắt active các gợi ý
-function clearActiveSuggestions() {
-    $(".suggestion-item").removeClass("active");
+function clearSuggestions(element) {
+    try {
+        if (!element || typeof element.innerHTML === "undefined") {
+            console.warn("⚠️ clearSuggestions: element is undefined or invalid");
+            return;
+        }
+        element.innerHTML = "";
+        element.style.display = "none";
+    } catch (err) {
+        console.error("❌ clearSuggestions error:", err);
+    }
 }
 
 // ẩn các gợi ý
 function clearSuggestions(suggestionBox) {
-    suggestionBox.innerHTML = "";
-    suggestionBox.style.display = "none";
+    try {
+        if (!element || typeof element.innerHTML === "undefined") {
+            console.warn("⚠️ clearSuggestions: element is undefined or invalid");
+            return;
+        }
+        element.innerHTML = "";
+        element.style.display = "none";
+    } catch (err) {
+        console.error("❌ clearSuggestions error:", err);
+    }
 }
 // hàm chọn gợi ý khi nhấn chọn enter hoặc tab
 function handleEnterKey(event, suggestionBox, inputGoiY) {
