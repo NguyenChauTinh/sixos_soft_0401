@@ -128,7 +128,7 @@ namespace sixos_soft_0401.PDFDocuments.P0401
                                                  if (_fromDate == _toDate)
                                                      text.Span($"Ngày: 00:00:00 {_fromDate}");
                                                  else
-                                                     text.Span($"Từ ngày: 00:00:00{_fromDate} Đến ngày: 00:00:00 {_toDate}");
+                                                     text.Span($"Từ ngày: 00:00:00 {_fromDate} Đến ngày: 00:00:00 {_toDate}");
                                              });
                                     });
                             });

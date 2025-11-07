@@ -4,6 +4,7 @@ using sixos_soft_0401.Models.M0401.M0401_DSNguoiBenhThucHienCLS;
 using sixos_soft_0401.Models.M0401.M0401_PhieuXuatKho;
 using sixos_soft_0401.Models.M0401.M0401_SoTuChoiMau;
 using sixos_soft_0401.Models.M0401.M0401_TheKhoDuoc;
+using sixos_soft_0401.Models.M0401.M0401_DanhSachBenhNhanKhamBenh;
 
 namespace sixos_soft_0401.Models.M0401
 {
@@ -17,6 +18,7 @@ namespace sixos_soft_0401.Models.M0401
         public DbSet<M0401_ThongTinDoanhNghiep> ThongTinDoanhNghiep { get; set; }
         public DbSet<HH_DM_KhoHang> HH_DM_KhoHang { get; set; }
         public DbSet<BenhNhanXemLSKCB> BenhNhanXemLSKCBs  { get; set; }
+        public DbSet<M0401_DanhSachBenhNhanKhamBenh_Model> T0401_DanhSachBenhNhanKhamBenh { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,6 +30,7 @@ namespace sixos_soft_0401.Models.M0401
             modelBuilder.Entity<M0401_PhieuXuatKho_Model>().HasNoKey();
             modelBuilder.Entity<HH_DM_KhoHang>().HasNoKey();
             modelBuilder.Entity<BenhNhanXemLSKCB>().HasNoKey();
+            modelBuilder.Entity<M0401_DanhSachBenhNhanKhamBenh_Model>().HasNoKey();
 
 
         }

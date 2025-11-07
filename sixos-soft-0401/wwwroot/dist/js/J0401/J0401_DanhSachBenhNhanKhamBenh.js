@@ -79,11 +79,7 @@ function formatDate(dateString) {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
 
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-
-    return `${hours}:${minutes}:${seconds} ${day}-${month}-${year}`;
+    return `${day}-${month}-${year}`;
 }
 
 
@@ -105,8 +101,6 @@ function updateTable(response) {
     } else if (response && response.data) {
         data = Array.isArray(response.data) ? response.data : [response.data];
     }
-
-    console.log('Data to display:', data);
     
     if (data.length > 0) {
         data.forEach((item, index) => {
@@ -115,14 +109,31 @@ function updateTable(response) {
             const row = `
                 <tr>
                     <td class="text-center text-nowrap">${stt}</td>
-                    <td class="text-center text-nowrap">${item.maYTe ?? item.MaYTe ?? ''}</td>
-                    <td class="text-nowrap">${item.tenBenhNhan ?? item.TenBenhNhan ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.nam ?? item.Nam ?? ''}</td>
-                    <td class="text-center text-nowrap">${item.nu ?? item.Nu ?? ''}</td>
-                    <td class="text-nowrap">${item.khoaPhong ?? item.KhoaPhong ?? ''}</td>
-                    <td class="text-nowrap">${item.nguoiTuChoi ?? item.NguoiTuChoi ?? ''}</td>
-                    <td class="text-center text-nowrap">${formatDate(item.thoiGianTuChoi ?? item.ThoiGianTuChoi)}</td>
-                    <td class="text-nowrap">${item.lyDoTuChoi ?? item.LyDoTuChoi ?? ''}</td>     
+                    <td class="text-center text-nowrap">${item.maBenhNhan ?? ''}</td>
+                    <td class="text-nowrap">${item.hoTenBenhNhan ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.namSinh ?? ''}</td>
+                    <td class="text-center text-nowrap">${item.gioiTinh ?? ''}</td>
+                    <td class="text-nowrap">${item.diaChi ?? ''}</td>
+                    <td class="text-nowrap">${item.tinhThanhPho ?? ''}</td>
+
+                    <td class="text-nowrap">${item.quocTich ?? ''}</td>
+                    <td class="text-nowrap">${item.soCCCD ?? ''}</td>
+                    <td class="text-nowrap">${item.soBHYT ?? ''}</td>
+                    <td class="text-nowrap">${item.noiDK_KCBBD ?? ''}</td>
+                    <td class="text-nowrap">${item.maDK_KCBBD ?? ''}</td>
+                    <td class="text-nowrap">${item.doiTuong ?? ''}</td>
+                    <td class="text-center text-nowrap">${formatDate(item.ngayKham ?? '')}</td>
+                    <td class="text-nowrap">${item.tenBacSiKham ?? ''}</td>
+                    <td class="text-nowrap">${item.chanDoan ?? ''}</td>
+                    <td class="text-nowrap">${item.maICD ?? ''}</td>  
+
+                    <td class="text-nowrap">${item.chiDinhDieuTri ?? ''}</td>
+                    <td class="text-nowrap">${item.loaiGia ?? ''}</td>
+                    <td class="text-nowrap">${item.chuyenKhoa ?? ''}</td>  
+
+                    <td class="text-nowrap">${item.loaiTiepNhan ?? ''}</td>
+                    <td class="text-nowrap">${item.huongGiaiQuyet ?? ''}</td>
+                    <td class="text-nowrap">${item.maSoVaoVien ?? ''}</td>  
                 </tr>
             `;
 
@@ -134,6 +145,8 @@ function updateTable(response) {
 
     
 }
+
+
 
 // ==================== RENDER PHÂN TRANG ====================
 function renderPagination() {
@@ -196,7 +209,7 @@ function filterData(isPagination = false) {
     $('.table').css('opacity', '0.5');
 
     $.ajax({
-        url: '/so_tu_choi_mau/filter',
+        url: '/danh_sach_benh_nhan_kham_benh/filter',
         type: 'POST',
         data: {
             tuNgay: tuNgay,
@@ -235,7 +248,7 @@ function filterData(isPagination = false) {
 function ajaxFilterRequest(payload) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: '/so_tu_choi_mau/filter',
+            url: '/danh_sach_benh_nhan_kham_benh/filter',
             type: 'POST',
             data: payload,
             success: function (resp) {
@@ -336,7 +349,7 @@ function doExportExcel(finalData, btn, originalHtml) {
     };
 
     $.ajax({
-        url: '/so_tu_choi_mau/export/excel',
+        url: '/danh_sach_benh_nhan_kham_benh/export/excel',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(requestData),
@@ -350,7 +363,7 @@ function doExportExcel(finalData, btn, originalHtml) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `SoTuChoiMau_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.xlsx`;
+            a.download = `DanhSachBenhNhanKhamBenh_${requestData.fromDate || 'all'}_den_${requestData.toDate || 'now'}.xlsx`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -403,16 +416,13 @@ function doExportPdf(finalData, btnElem) {
         doanhNghiep: window.doanhNghiep || null
     };
 
-    // Lấy các phần tử modal và iframe
     const pdfModalElement = document.getElementById('pdfViewerModal');
-    const pdfModal = bootstrap.Modal.getOrCreateInstance(pdfModalElement); // Lấy hoặc tạo đối tượng Modal
+    const pdfModal = bootstrap.Modal.getOrCreateInstance(pdfModalElement); 
     const pdfFrame = document.getElementById('pdfViewerFrame');
 
-    // Reset iframe về trang trống trước khi gọi fetch
-    // phòng trường hợp file cũ vẫn còn hiển thị
     pdfFrame.src = 'about:blank';
 
-    fetch("/so_tu_choi_mau/export/pdf", {
+    fetch("/danh_sach_benh_nhan_kham_benh/export/pdf", {
         method: "POST",
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/pdf' },
         body: JSON.stringify(requestData)
@@ -422,21 +432,16 @@ function doExportPdf(finalData, btnElem) {
             return res.blob();
         })
         .then(blob => {
-            const pdfUrl = URL.createObjectURL(blob);
+            const url = window.URL.createObjectURL(blob);
 
-            // 📄 Tạo iframe ẩn để mở file PDF
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = pdfUrl;
-            document.body.appendChild(iframe);
+            pdfFrame.src = url;
+            pdfModal.show();
+            pdfModalElement.addEventListener('hidden.bs.modal', () => {
+                window.URL.revokeObjectURL(url);
+                pdfFrame.src = 'about:blank'; 
+            }, { once: true }); 
 
-            // 🖨️ Khi tải xong, tự động mở giao diện in của Chrome
-            iframe.onload = function () {
-                const printWindow = iframe.contentWindow;
-                printWindow.focus();
-                printWindow.print();
-            };
-
+            showToast('Đã tải file PDF để xem trước', "success");
         })
         .catch(error => {
             console.error("Lỗi khi xuất PDF: ", error);
@@ -448,7 +453,6 @@ function doExportPdf(finalData, btnElem) {
         });
 }
 
-// Code xử lý click của bạn giữ nguyên, không cần đổi
 $('#btnExportPDF').off('click').on('click', function (e) {
     e.preventDefault();
     if (!validateExportDatesAndData()) return;

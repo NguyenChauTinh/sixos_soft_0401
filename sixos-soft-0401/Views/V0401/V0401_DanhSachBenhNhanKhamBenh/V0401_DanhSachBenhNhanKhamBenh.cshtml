@@ -1,0 +1,285 @@
+﻿@{
+	ViewData["NonSixOs"] = true;
+	ViewData["Title"] = "Danh sách bệnh nhân khám bệnh";
+}
+
+@using sixos_soft_0401.Models.M0401.M0401_SoTuChoiMau;
+@using sixos_soft_0401.Models.M0401;
+
+<style>
+
+	.table-wrapper-scroll {
+		position: relative;
+		overflow: auto;
+		max-height: 78vh;
+		min-height: 78vh;
+	}
+
+		.table-wrapper-scroll thead th {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			background-color: #f8f9fa;
+		}
+
+		.table-wrapper-scroll th:nth-child(1),
+		.table-wrapper-scroll td:nth-child(1) {
+			position: sticky;
+			left: 0;
+			min-width: 60px;
+		}
+
+		.table-wrapper-scroll th:nth-child(2),
+		.table-wrapper-scroll td:nth-child(2) {
+			position: sticky;
+			left: 60px;
+			min-width: 120px;
+		}
+
+		.table-wrapper-scroll th:nth-child(3),
+		.table-wrapper-scroll td:nth-child(3) {
+			position: sticky;
+			left: 180px;
+			min-width: 200px;
+		}
+
+		.table-wrapper-scroll tbody td:nth-child(1),
+		.table-wrapper-scroll tbody td:nth-child(2),
+		.table-wrapper-scroll tbody td:nth-child(3) {
+			background-color: white;
+		}
+
+		.table-wrapper-scroll thead th:nth-child(1),
+		.table-wrapper-scroll thead th:nth-child(2),
+		.table-wrapper-scroll thead th:nth-child(3) {
+			z-index: 1000;
+			background-color: #f8f9fa;
+		}
+
+		.table-wrapper-scroll th:nth-child(1)::before,
+		.table-wrapper-scroll td:nth-child(1)::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: -1px;
+			width: 1px;
+			height: 100%;
+			background: #ccc;
+			z-index: 30;
+		}
+
+		.table-wrapper-scroll th:nth-child(1)::after,
+		.table-wrapper-scroll td:nth-child(1)::after,
+		.table-wrapper-scroll th:nth-child(2)::after,
+		.table-wrapper-scroll td:nth-child(2)::after,
+		.table-wrapper-scroll th:nth-child(3)::after,
+		.table-wrapper-scroll td:nth-child(3)::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			right: -1px;
+			width: 1px;
+			height: 100%;
+			background: #ccc;
+			z-index: 30;
+		}
+
+</style>
+
+<div class="card p-1 d-flex " style="height: 86vh;position: relative;">
+	<div class="row g-0 h-100">
+		<div class="col-3 p-2">
+			<div class="border">
+				<div class="p-2">
+					<div style="width: 100%; padding:0;">
+						<label class="form-label">Giai đoạn</label>
+						<select id="selectGiaiDoan" class="form-select">
+							<option value="Nam">Năm</option>
+							<option value="Quy">Quý</option>
+							<option value="Thang">Tháng</option>
+							<option value="Ngay" selected>Ngày</option>
+						</select>
+					</div>
+				</div>
+
+
+				<div id="selectContainer"
+					 class="p-2 d-flex justify-content-between align-items-center">
+				</div>
+				<div id="select-date-area">
+					<div class="p-2">
+						<label class="form-label">Từ ngày</label>
+						<div class="input-group">
+							<input type="text"
+								   class="form-control date-input"
+								   id="ngayTuNgay"
+								   name="TuNgay"
+								   value="@DateTime.Now.ToString("dd-MM-yyyy")"
+								   placeholder="dd-mm-yyyy"
+								   autocomplete="off" />
+							<span class="input-group-text cursor-pointer datepicker-trigger">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+								</svg>
+							</span>
+						</div>
+						<span class="text-danger"></span>
+					</div>
+					<div class="p-2">
+						<label class="form-label">Đến ngày</label>
+						<div class="input-group">
+							<input type="text"
+								   class="form-control date-input"
+								   id="ngayDenNgay"
+								   name="DenNgay"
+								   value="@DateTime.Now.ToString("dd-MM-yyyy")"
+								   placeholder="dd-mm-yyyy"
+								   autocomplete="off" />
+							<span class="input-group-text cursor-pointer datepicker-trigger">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+								</svg>
+							</span>
+						</div>
+						<span class="text-danger"></span>
+					</div>
+				</div>
+
+
+				<div class="p-2">
+					<button id="btnFilter" class="btn btn-outline-primary w-100 mb-2" @(ViewBag.quyenVaiTro.Xem ? "" : "disabled")>
+						<i class="bi bi-funnel"></i> Lọc danh sách
+					</button>
+					<div class="d-flex justify-content-between align-items-center ">
+						<button id="btnExportPDF" class="btn btn-outline-danger" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
+							<i class="bi bi-file-earmark-pdf"></i> Xuất PDF
+						</button>
+						<button id="btnExportExcel" class="btn btn-outline-success" style="width: 45%;" @(ViewBag.quyenVaiTro.Xuat ? "" : "disabled")>
+							<i class="bi bi-file-earmark-excel"></i> Xuất Excel
+						</button>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<div class="col-9 p-2">
+
+
+
+			<div class="table-responsive table-wrapper-scroll" style="max-height: 78vh;min-height: 78vh; overflow-y:auto;">
+				<table class="table table-bordered table-hover">
+					<thead class="table-light">
+						<tr>
+							<th class="text-center" style="width:60px">STT</th>
+							<th class="text-center text-nowrap">Mã bệnh nhân</th>
+							<th class="text-center text-nowrap">Họ tên bệnh nhân</th>
+							<th class="text-center text-nowrap">Năm sinh</th>
+							<th class="text-center text-nowrap">Giới tính</th>
+							<th class="text-center text-nowrap">Địa chỉ</th>
+							<th class="text-center text-nowrap">Tỉnh, Thành phố</th>
+							<th class="text-center text-nowrap">Quốc tịch</th>
+							<th class="text-center text-nowrap">Số CCCD</th>
+
+							<th class="text-center text-nowrap">Số BHYT</th>
+							<th class="text-center text-nowrap">Nơi ĐK KCB ban đầu</th>
+							<th class="text-center text-nowrap">Mã ĐK KCB ban đầu</th>
+							<th class="text-center text-nowrap">Đối tượng</th>
+							<th class="text-center text-nowrap">Ngày khám</th>
+							<th class="text-center text-nowrap">Tên bác sĩ khám</th>
+
+							<th class="text-center text-nowrap">Chẩn đoán</th>
+							<th class="text-center text-nowrap">Mã ICD</th>
+							<th class="text-center text-nowrap">Chỉ định điều trị</th>
+							<th class="text-center text-nowrap">Loại giá</th>
+							<th class="text-center text-nowrap">Chuyên khoa</th>
+							<th class="text-center text-nowrap">Loại tiếp nhận</th>
+
+							<th class="text-center text-nowrap">Hướng giải quyết</th>
+							<th class="text-center text-nowrap">Mã số vào viện</th>
+
+						</tr>
+					</thead>
+					<tbody id="data-list">
+					</tbody>
+
+
+				</table>
+
+			</div>
+			<div id="loadingSpinner" class="text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
+				<div class="spinner-border text-primary" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<p>Đang tải dữ liệu...</p>
+			</div>
+			<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055">
+				<div id="myToast"
+					 class="toast align-items-center text-white bg-success border-0"
+					 role="alert" aria-live="assertive" aria-atomic="true"
+					 data-bs-delay="2000">
+					<div class="d-flex">
+						<div class="toast-body p-4">
+						</div>
+						<button type="button" class="btn-close btn-close-white me-2 m-auto"
+								data-bs-dismiss="toast" aria-label="Close"></button>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between align-items-center flex-wrap">
+
+				<div class="d-flex align-items-center">
+					<label for="pageSizeSelect" class="form-label mb-0 me-2">Số bản ghi mỗi trang:</label>
+					<select id="pageSizeSelect" class="form-select form-select-sm" style="width: auto;">
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+				</div>
+
+
+				<div class="d-flex align-items-center">
+					<nav aria-label="Page navigation">
+						<ul class="pagination mb-0" id="pagination"></ul>
+					</nav>
+					<span id="pageInfo" class="ms-2"></span>
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</div>
+</div>
+
+<div class="modal fade" id="pdfViewerModal" tabindex="-1" aria-labelledby="pdfViewerModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-fullscreen">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h6 class="modal-title" id="pdfViewerModalLabel">Xem trước PDF</h6>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="padding: 0; overflow: hidden;">
+				<iframe id="pdfViewerFrame" style="width: 100%; height: 100%; border: none;" src="about:blank"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+@section Scripts {
+	<link rel="stylesheet" href="~/dist/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" href="~/dist/css/CSS0401/CSS_DSNguoiThucHienCLS.css" asp-append-version="true">
+
+	<script src="~/dist/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+	<script src="~/dist/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" defer></script>
+	<script src="~/dist/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.vi.min.js" defer></script>
+	<script src="~/dist/js/J0401/J0401_DanhSachBenhNhanKhamBenh.js" asp-append-version="true" defer></script>
+
+
+}

@@ -13,6 +13,7 @@ using sixos_soft_0401.Services.S0401.S0401_PhieuXuatKho;
 using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using sixos_soft_0401.Services.S0401.S0401_DanHSachBenhNhanKhamBenh;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,7 @@ builder.Services.AddScoped<I0401_DSNguoiBenhThucHienCLS, S0401_DSNguoiBenhThucHi
 builder.Services.AddScoped<I0401_SoTuChoiMau, S0401_SoTuChoiMau_Service>();
 builder.Services.AddScoped<I0401_TheKhoDuoc, S0401_TheKhoDuoc_Service>();
 builder.Services.AddScoped<I0401_PhieuXuatKho, S0401_PhieuXuatKho_Service>();
+builder.Services.AddScoped<IS0401_DanhSachBenhNhanKhamBenh, S0401_DanhSachBenhNhanKhamBenh>();
 builder.Services.AddHttpContextAccessor();
 
 QuestPDF.Settings.License = LicenseType.Community;
