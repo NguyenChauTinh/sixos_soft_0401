@@ -432,16 +432,20 @@ function doExportPdf(finalData, btnElem) {
             return res.blob();
         })
         .then(blob => {
-            const url = window.URL.createObjectURL(blob);
+            const pdfUrl = URL.createObjectURL(blob);
 
-            pdfFrame.src = url;
-            pdfModal.show();
-            pdfModalElement.addEventListener('hidden.bs.modal', () => {
-                window.URL.revokeObjectURL(url);
-                pdfFrame.src = 'about:blank'; 
-            }, { once: true }); 
+            // 📄 Tạo iframe ẩn để mở file PDF
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = pdfUrl;
+            document.body.appendChild(iframe);
 
-            showToast('Đã tải file PDF để xem trước', "success");
+            // 🖨️ Khi tải xong, tự động mở giao diện in của Chrome
+            iframe.onload = function () {
+                const printWindow = iframe.contentWindow;
+                printWindow.focus();
+                printWindow.print();
+            };
         })
         .catch(error => {
             console.error("Lỗi khi xuất PDF: ", error);
